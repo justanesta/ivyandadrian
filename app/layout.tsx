@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from 'next/link'; // Use Next.js client-side navigation for internal routes
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const geistSans = Geist({
@@ -28,9 +29,9 @@ export default function RootLayout({
       <body>
         <nav className="navbar navbar-expand-md navbar-light bg-white border-bottom">
           <div className="container">
-            <a className="navbar-brand fw-bold" href="/">
+            <Link className="navbar-brand fw-bold" href="/">
               Ivy & Adrian
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -42,19 +43,13 @@ export default function RootLayout({
             <div id="nav" className="collapse navbar-collapse">
               <ul className="navbar-nav ms-auto gap-2">
                 <li className="nav-item">
-                  <a className="nav-link" href="/story">
-                    Our Story
-                  </a>
+                  <Link className="nav-link" href="/story">Our Story</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/logistics">
-                    Logistics
-                  </a>
+                  <Link className="nav-link" href="/logistics">Logistics</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/rsvp">
-                    RSVP
-                  </a>
+                  <Link className="nav-link" href="/rsvp">RSVP</Link>
                 </li>
               </ul>
             </div>
