@@ -1,32 +1,48 @@
 // middleware.ts
-// Purpose: Gate all pages behind a password, while EXCLUDING API routes,
-// Next.js internals, favicon, and the /login page itself.
+// Password-gates the entire site except a few public paths.
+// If the auth cookie is missing, redirect to /login?from=<original path>.
 
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// ✅ Use a single negative-lookahead to exclude paths you DON'T want to match.
-//    - api               → don't run middleware for route handlers
-//    - _next/static      → static assets
-//    - _next/image       → image optimizer
-//    - favicon.ico       → favicon
-//    - login             → allow access to the login screen
-export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon\\.ico|login).*)'],
-  // ^ Every matcher string must start with '/', and you can use regex groups.
-  //   This pattern runs middleware for everything EXCEPT the items listed above.
+export function middleware(req: NextRequest) {
+  const { pathname, search } = req.nextUrl
+
+  // Allow the login page and the login API itself
+  if (pathname === '/login' || pathname.startsWith('/api/login')) {
+    return NextResponse.next()
+  }
+
+  // Allow Next internals & static assets to bypass middleware
+  // (prevents infinite loops and speeds up asset delivery)
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/favicon') ||
+    pathname.startsWith('/robots.txt') ||
+    pathname.startsWith('/sitemap') ||
+    pathname.startsWith('/images') // your /public/images
+  ) {
+    return NextResponse.next()
+  }
+
+  // Check cookie
+  const hasAuth = req.cookies.get('site_auth')?.value === 'yes'
+  if (!hasAuth) {
+    const url = req.nextUrl.clone()
+    url.pathname = '/login'
+    // remember where the visitor was trying to go
+    url.search = `?from=${encodeURIComponent(pathname + (search || ''))}`
+    return NextResponse.redirect(url)
+  }
+
+  // Allowed through
+  return NextResponse.next()
 }
 
-export function middleware(req: NextRequest) {
-  const cookie = req.cookies.get('site_auth')?.value
-  const password = process.env.SITE_PASSWORD
-  const isAuthed = cookie === password
-
-  // If already authenticated, continue
-  if (isAuthed) return NextResponse.next()
-
-  // Otherwise, redirect to /login
-  const url = req.nextUrl.clone()
-  url.pathname = '/login'
-  return NextResponse.redirect(url)
+// Match ALL routes except the known excluded prefixes.
+// This pattern comes from the Next team’s guidance.  :contentReference[oaicite:2]{index=2}
+export const config = {
+  matcher: [
+    '/((?!api/login|_next/static|_next/image|favicon.ico|robots.txt|images).*)',
+  ],
 }

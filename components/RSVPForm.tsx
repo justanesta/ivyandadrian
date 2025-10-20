@@ -1,40 +1,81 @@
 // components/RSVPForm.tsx
 // Client component: interactive RSVP form for personalized links.
-// Submits to /api/rsvp and redirects to /thank-you on success.
+// - Redirects to /thank-you?attending=yes|no on success
+// - When "No" is selected: unchecks + disables transport; disables notes & song; forces plusOnes=0
+// - When "Yes" is selected: re-enables fields (transport defaults to checked)
+
+// Personalized RSVP form supporting a single optional plus-one.
+// - Shows a checkbox "I'm bringing my plus one" if allowed & attending.
+// - When checked, shows one text input for the plus-one full name.
+// - Sends `plus_one_name` (string) to the API; server stores count=0/1 and name.
+// - Single optional plus-one (checkbox + one name input)
+// - Single transport checkbox
+// - Optional email for updates
+
 
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 type Props = {
   inviteCode: string
   allowPlusOne: boolean
-  plusOneMax: number
 }
 
-export default function RSVPForm({ inviteCode, allowPlusOne, plusOneMax }: Props) {
+export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
   const router = useRouter()
 
   // Attending radios
   const [attending, setAttending] = useState<boolean | undefined>(undefined)
-  // Transport checkboxes (default true)
-  const [needsTo, setNeedsTo] = useState(true)
-  const [needsFrom, setNeedsFrom] = useState(true)
-  // Plus-one count
-  const [plusOnes, setPlusOnes] = useState(0)
-  // Dietary notes
+
+  // Single plus-one
+  const [bringPlusOne, setBringPlusOne] = useState(false)
+  const [plusOneName, setPlusOneName] = useState('')
+
+  // Single transport checkbox
+  const [needsTransport, setNeedsTransport] = useState(false)
+
+  // Text fields
   const [notes, setNotes] = useState('')
+  const [song, setSong] = useState('')
+
+  // Optional email
+  const [email, setEmail] = useState('')
+
+  // When attending toggles: reset dependent fields
+  useEffect(() => {
+    if (attending === false) {
+      setBringPlusOne(false)
+      setPlusOneName('')
+      setNeedsTransport(false)
+    }
+  }, [attending])
+
+  const disabledIfNo = attending === false
+
+  // Simple email validator (client-side)
+  function isEmailValid(s: string) {
+    if (!s) return true // optional
+    if (s.length > 254) return false
+    return /^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/i.test(s.trim())
+  }
+
+  const canSubmit = useMemo(() => {
+    if (typeof attending === 'undefined') return false
+    if (!isEmailValid(email)) return false
+    if (attending && allowPlusOne && bringPlusOne) {
+      return plusOneName.trim().length > 0
+    }
+    return true
+  }, [attending, allowPlusOne, bringPlusOne, plusOneName, email])
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (typeof attending === 'undefined') {
-      alert('Please select whether you are attending.')
+    if (!canSubmit) {
+      alert('Please complete the required fields before submitting.')
       return
     }
-
-    const safePlusOnes = attending ? plusOnes : 0
 
     try {
       const res = await fetch('/api/rsvp', {
@@ -43,16 +84,18 @@ export default function RSVPForm({ inviteCode, allowPlusOne, plusOneMax }: Props
         body: JSON.stringify({
           invite_code: inviteCode,
           attending,
-          plus_one_count: safePlusOnes,
-          needs_transport_to: needsTo,
-          needs_transport_from: needsFrom,
-          dietary_notes: notes.slice(0, 500).trim()
+          plus_one_name: allowPlusOne && attending && bringPlusOne
+            ? plusOneName.slice(0, 80).trim()
+            : null,
+          needs_transport: attending ? needsTransport : false,
+          dietary_notes: notes.slice(0, 500).trim(),
+          song_request: song.slice(0, 120).trim(),
+          email: email.trim() || null
         })
       })
 
       if (res.ok) {
-        // Redirect to thank-you page on success
-        router.push('/thank-you')
+        router.push(`/thank-you?attending=${attending ? 'yes' : 'no'}`)
       } else {
         const msg = await res.text()
         alert(`There was a problem: ${msg || 'Please try again.'}`)
@@ -65,7 +108,7 @@ export default function RSVPForm({ inviteCode, allowPlusOne, plusOneMax }: Props
 
   return (
     <form className="d-grid gap-4" onSubmit={onSubmit}>
-      {/* Attending (radio) */}
+      {/* Attending */}
       <div>
         <label className="form-label d-block">Will you be attending?</label>
         <div className="form-check form-check-inline">
@@ -77,9 +120,7 @@ export default function RSVPForm({ inviteCode, allowPlusOne, plusOneMax }: Props
             checked={attending === true}
             onChange={() => setAttending(true)}
           />
-          <label className="form-check-label" htmlFor="attendYes">
-            Yes
-          </label>
+          <label className="form-check-label" htmlFor="attendYes">Yes</label>
         </div>
         <div className="form-check form-check-inline">
           <input
@@ -90,72 +131,68 @@ export default function RSVPForm({ inviteCode, allowPlusOne, plusOneMax }: Props
             checked={attending === false}
             onChange={() => setAttending(false)}
           />
-          <label className="form-check-label" htmlFor="attendNo">
-            No
-          </label>
+          <label className="form-check-label" htmlFor="attendNo">No</label>
         </div>
       </div>
 
-      {/* Plus-one numeric input (only if allowed & attending) */}
+      {/* Single plus-one (only if attending & allowed) */}
       {allowPlusOne && attending === true && (
-        <div>
-          <label className="form-label" htmlFor="plusOnes">
-            Number of plus-ones (max {plusOneMax})
-          </label>
-          <input
-            id="plusOnes"
-            className="form-control"
-            type="number"
-            inputMode="numeric"
-            min={0}
-            max={plusOneMax}
-            step={1}
-            value={plusOnes}
-            onChange={(e) => {
-              const v = Number(e.target.value)
-              if (Number.isNaN(v)) return
-              const clamped = Math.max(0, Math.min(plusOneMax, v))
-              setPlusOnes(clamped)
-            }}
-          />
-          <div className="form-text">Enter a number between 0 and {plusOneMax}.</div>
+        <div className="d-grid gap-2">
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="bringPlusOne"
+              checked={bringPlusOne}
+              onChange={() => setBringPlusOne((v) => !v)}
+            />
+            <label className="form-check-label" htmlFor="bringPlusOne">
+              I’m bringing my plus one
+            </label>
+          </div>
+
+          {bringPlusOne && (
+            <div>
+              <label className="form-label" htmlFor="plusOneName">Plus-one full name</label>
+              <input
+                id="plusOneName"
+                className="form-control"
+                type="text"
+                placeholder="Full legal/preferred name"
+                maxLength={80}
+                value={plusOneName}
+                onChange={(e) => setPlusOneName(e.target.value)}
+              />
+              <div className="form-text">Required if you’re bringing your plus one.</div>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Transport checkboxes (default checked = true) */}
-      <div>
-        <label className="form-label d-block">Do you need transportation?</label>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="needsTo"
-            checked={needsTo}
-            onChange={() => setNeedsTo((v) => !v)}
-          />
-          <label className="form-check-label" htmlFor="needsTo">
-            To the venue
-          </label>
+      {/* Single transport checkbox (only relevant if attending) */}
+      {attending === true && (
+        <div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="needsTransport"
+              checked={needsTransport}
+              onChange={() => setNeedsTransport(v => !v)}
+            />
+            <label className="form-check-label" htmlFor="needsTransport">
+              Will you use transportation to/from the hotels in <strong>West Chester, PA</strong> and the venue in <strong>Media, PA</strong>?
+            </label>
+          </div>
+          <div className="form-text">
+            Check this if you’ll ride the provided shuttles.
+          </div>
         </div>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="needsFrom"
-            checked={needsFrom}
-            onChange={() => setNeedsFrom((v) => !v)}
-          />
-          <label className="form-check-label" htmlFor="needsFrom">
-            From the venue
-          </label>
-        </div>
-      </div>
+      )}
 
       {/* Dietary notes */}
       <div>
-        <label className="form-label" htmlFor="notes">
-          Dietary notes
-        </label>
+        <label className="form-label" htmlFor="notes">Dietary notes</label>
         <textarea
           id="notes"
           className="form-control"
@@ -163,11 +200,46 @@ export default function RSVPForm({ inviteCode, allowPlusOne, plusOneMax }: Props
           maxLength={500}
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
+          disabled={disabledIfNo}
         />
         <div className="form-text">Up to 500 characters.</div>
       </div>
 
-      <button className="btn btn-dark" type="submit">
+      {/* Favorite dance song */}
+      <div>
+        <label className="form-label" htmlFor="song">Favorite wedding dance song</label>
+        <input
+          id="song"
+          className="form-control"
+          type="text"
+          placeholder="e.g., 'September — Earth, Wind & Fire'"
+          maxLength={120}
+          value={song}
+          onChange={(e) => setSong(e.target.value)}
+          disabled={disabledIfNo}
+        />
+        <div className="form-text">Optional — title & artist (up to 120 characters).</div>
+      </div>
+
+      {/* Optional email for updates */}
+      <div>
+        <label className="form-label" htmlFor="email">Email for event updates (optional)</label>
+        <input
+          id="email"
+          className="form-control"
+          type="email"
+          inputMode="email"
+          placeholder="you@example.com"
+          maxLength={254}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {!isEmailValid(email) && (
+          <div className="text-danger small mt-1">Please enter a valid email address or leave blank.</div>
+        )}
+      </div>
+
+      <button className="btn btn-dark" type="submit" disabled={!canSubmit}>
         Submit RSVP
       </button>
     </form>

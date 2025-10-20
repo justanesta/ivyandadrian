@@ -1,35 +1,42 @@
 // app/rsvp/[code]/page.tsx
-// Server component: loads the guest by invite_code (case-insensitive)
-// and renders a client RSVP form for THIS guest only.
+// Personalized RSVP page rendered at /rsvp/<invite_code>.
+//
+// Key points:
+// - This is a Server Component (no 'use client'), ideal for DB fetching.
+// - In Next.js 15+, `params` is a Promise and must be **awaited**.
+// - We resolve the guest **server-side** by `invite_code` (case-insensitive).
+// - If the code is invalid, we render a gentle error message.
+// - On success, we render the client RSVP form scoped to THIS guest only.
+// - No longer uses plus_one_max; allowPlusOne boolean only.
 
 import { sql } from '@/lib/db'
-import RSVPForm from '@/components/RSVPForm.tsx' // (we'll create this next)
+import RSVPForm from '@/components/RSVPForm'
 
 type Guest = {
   id: number
   full_name: string
   allow_plus_one: boolean
-  plus_one_max: number
 }
 
-export default async function RSVPForCode({ params }: { params: { code: string } }) {
-  const code = params.code.toLowerCase()
+type PageProps = { params: Promise<{ code: string }> }
 
-  // 🔎 Fetch the guest securely on the server (no client trust needed)
+export default async function RSVPForCode({ params }: PageProps) {
+  const { code } = await params
+  const normalizedCode = code.toLowerCase()
+
   const { rows } = await sql<Guest>`
-    select id, full_name, allow_plus_one, plus_one_max
+    select id, full_name, allow_plus_one
     from guests
-    where lower(invite_code) = ${code}
+    where lower(invite_code) = ${normalizedCode}
     limit 1
   `
   const guest = rows[0]
 
   if (!guest) {
-    // Gentle error state if someone mistypes a link
     return (
       <main className="container py-5" style={{ maxWidth: 720 }}>
         <h1 className="h4 mb-3">Invalid RSVP link</h1>
-        <p>Please contact us if you need a new link.</p>
+        <p>Please check your link or contact us for a new one.</p>
       </main>
     )
   }
@@ -38,12 +45,11 @@ export default async function RSVPForCode({ params }: { params: { code: string }
     <main className="container py-5" style={{ maxWidth: 720 }}>
       <h1 className="h4 mb-4">RSVP — {guest.full_name}</h1>
 
-      {/* Pass only the data this guest is allowed to edit */}
       <RSVPForm
-        inviteCode={code}                              // authoritative identity
-        allowPlusOne={guest.allow_plus_one}
-        plusOneMax={guest.plus_one_max}
+        inviteCode={normalizedCode}
+        allowPlusOne={guest.allow_plus_one}  // ✅ boolean only
       />
     </main>
   )
 }
+

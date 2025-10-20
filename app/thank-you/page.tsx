@@ -1,29 +1,42 @@
-// scripts/export-rsvp-links.ts
-// Usage: npx tsx scripts/export-rsvp-links.ts > rsvp-links.csv
-// Outputs CSV: full_name,invite_code,link
+// app/thank-you/page.tsx
+// Thank-you page that adapts copy based on ?attending=yes|no
+// and is forced dynamic so query params are always respected.
 
-import { loadEnvConfig } from '@next/env'
-loadEnvConfig(process.cwd())
+export const dynamic = 'force-dynamic' // ← ensure query string is read on each request
+export const revalidate = 0            // ← no caching
 
-import { sql } from '@vercel/postgres'
-
-const BASE = process.env.LINK_BASE || 'https://your-vercel-domain.vercel.app' 
-// ^ set LINK_BASE in .env.local to 'https://ivyandadrian.love' when ready
-
-function csvEscape(s: string) {
-  const t = s.replace(/"/g, '""')
-  return `"${t}"`
+type PageProps = {
+  searchParams: Promise<{ attending?: string }>
 }
 
-async function main() {
-  const { rows } = await sql<{ full_name: string; invite_code: string }>`
-    select full_name, invite_code from guests order by full_name
-  `
-  console.log('full_name,invite_code,link')
-  for (const r of rows) {
-    const link = `${BASE}/rsvp/${r.invite_code}`
-    console.log([csvEscape(r.full_name), r.invite_code, csvEscape(link)].join(','))
-  }
-}
+export default async function ThankYouPage({ searchParams }: PageProps) {
+  // Next 15: searchParams is a Promise
+  const sp = await searchParams
+  const attending = (sp.attending || '').toLowerCase()
+  const isYes = attending === 'yes' || attending === 'true' || attending === '1'
 
-main().catch((e) => { console.error(e); process.exit(1) })
+  return (
+    <main className="container py-5 text-center" style={{ maxWidth: 720 }}>
+      <h1 className="display-6 mb-4">{isYes ? 'Thank you!' : 'Thanks for letting us know'}</h1>
+
+      {isYes ? (
+        <>
+          <p className="lead mb-4">
+            We’ve received your RSVP and can’t wait to celebrate with you!
+          </p>
+          <p>If needed, we’ll follow up with additional details as the day approaches.</p>
+        </>
+      ) : (
+        <>
+          <p className="lead mb-4">
+            We’re sorry you can’t make it, but we appreciate the update.
+          </p>
+          <p>If your plans change, you can revisit your personalized link any time.</p>
+        </>
+      )}
+
+      <hr className="my-4" />
+      <p className="text-muted">With love, Ivy &amp; Adrian</p>
+    </main>
+  )
+}

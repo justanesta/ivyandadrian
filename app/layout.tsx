@@ -30,7 +30,7 @@ export default function RootLayout({
         <nav className="navbar navbar-expand-md navbar-light bg-white border-bottom">
           <div className="container">
             <Link className="navbar-brand fw-bold" href="/">
-              Ivy & Adrian
+              Ivy &amp; Adrian
             </Link>
             <button
               className="navbar-toggler"
@@ -50,6 +50,9 @@ export default function RootLayout({
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/rsvp">RSVP</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/registry">Registry</Link>
                 </li>
               </ul>
             </div>

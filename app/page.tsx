@@ -1,95 +1,59 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// app/page.tsx
+// Home (landing) page with a big hero image, event details, and a second large image.
+// Uses Bootstrap utility classes for spacing and responsive images.
 
-export default function Home() {
+import Link from 'next/link'
+
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    <main>
+      {/* ===== Hero ===== */}
+      <section className="bg-light">
+        <div className="container py-5">
+          {/* Hero image */}
+          <figure className="mb-4">
+            {/* Replace the src below with your real hero asset in /public/images */}
+            <img
+              src="/images/hero-ivy-adrian.jpg"
+              alt="Ivy & Adrian — engagement photo"
+              className="img-fluid rounded-3 w-100"
+              style={{ objectFit: 'cover', maxHeight: 520 }}
             />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+          </figure>
+
+          {/* Short event info */}
+          <div className="text-center" style={{ maxWidth: 780, margin: '0 auto' }}>
+            <h1 className="display-6 fw-semibold mb-2">Ivy &amp; Adrian are getting married</h1>
+            <p className="lead mb-1">May 23rd, 2026</p>
+            <p className="lead text-muted">Tyler Arboretum — Media, PA</p>
+
+            {/* Quick actions (optional) */}
+            <div className="d-flex gap-3 justify-content-center mt-3">
+              <Link href="/rsvp" className="btn btn-dark">RSVP</Link>
+              <Link href="/logistics" className="btn btn-outline-dark">Logistics</Link>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </section>
+
+      {/* ===== Second big image ===== */}
+      <section>
+        <div className="container py-5">
+          <figure className="mb-0">
+            {/* Replace with a venue or favorites photo */}
+            <img
+              src="/images/tyler-arboretum.jpg"
+              alt="Tyler Arboretum in Media, Pennsylvania"
+              className="img-fluid rounded-3 w-100"
+              style={{ objectFit: 'cover', maxHeight: 520 }}
+            />
+            {/* Optional caption */}
+            <figcaption className="form-text mt-2 text-center">
+              Tyler Arboretum — where we’ll celebrate together
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+  )
 }
