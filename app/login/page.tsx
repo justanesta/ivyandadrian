@@ -1,58 +1,47 @@
 // app/login/page.tsx
-// Simple password form that posts to /api/login and then navigates to home.
-// The middleware will let the user through once the auth cookie is set.
+// Server component: no client hooks, no Suspense required.
+// Displays password form that posts to /api/login (handled in app/api/login/route.ts)
+type PageProps = {
+  searchParams: Promise<{ from?: string; error?: string }>
+}
 
-'use client'
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
-import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-
-export default function LoginPage() {
-  const router = useRouter()
-  const sp = useSearchParams()
-  const from = sp.get('from') || '/'  // we’ll send people back to where they came from
-  const [pw, setPw] = useState('')
-  const [err, setErr] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setLoading(true)
-    setErr(null)
-    try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: pw })
-      })
-      if (res.ok) {
-        router.replace(from)
-      } else {
-        setErr(await res.text() || 'Incorrect password')
-      }
-    } catch (_err) {
-      setErr('Network error')
-    } finally {
-      setLoading(false)
-    }
-  }
+export default async function LoginPage({ searchParams }: PageProps) {
+  const sp = await searchParams
+  const from = sp.from ?? '/'
+  const error = sp.error
 
   return (
     <main className="container py-5" style={{ maxWidth: 480 }}>
-      <h1 className="h4 mb-3">Enter Site Password</h1>
-      <form className="d-grid gap-3" onSubmit={onSubmit}>
+      <h1 className="h4 text-navy mb-3">Enter Site Password</h1>
+
+      {error && (
+        <div className="alert alert-danger" role="alert">
+          {error}
+        </div>
+      )}
+
+      <form method="POST" action="/api/login" className="d-grid gap-3">
+        <input type="hidden" name="from" value={from} />
+
         <input
           className="form-control"
           type="password"
+          name="password"
           placeholder="Password"
-          value={pw}
-          onChange={(e) => setPw(e.target.value)}
           autoFocus
+          required
         />
-        {err && <div className="text-danger small">{err}</div>}
-        <button className="btn btn-dark" disabled={loading} type="submit">
-          {loading ? 'Checking…' : 'Continue'}
+
+        <button className="btn btn-brand" type="submit">
+          Continue
         </button>
+
+        <p className="form-text mt-2">
+          Password is on the save the date!
+        </p>
       </form>
     </main>
   )
