@@ -1,42 +1,300 @@
+/* app/globals.css */
+/* Global font + color palette customization */
+
+/* Import Bootstrap's base CSS FIRST if you’re not already doing so elsewhere */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Custom palette from your provided hex values */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-sky:    #AFCDEB; /* soft sky blue */
+  --color-coral:  #F36C5B; /* coral accent */
+  --color-navy:   #235B8C; /* deep navy blue */
+  --color-forest: #4A8162; /* muted green */
+  --color-rose:   #E8A6B5; /* pale pink rose */
+  --color-sage:   #B5C9A4; /* sage green */
+  --color-sun:    #F6D77B; /* warm yellow */
+
+  --font-family-base: 'Source Serif Pro', serif;
+  --font-family-script: 'Dancing Script', cursive;
+
+  /* Example theme overrides for Bootstrap-like variables */
+  --bs-body-font-family: var(--font-family-base);
+  --bs-body-color: #1a1a1a;
+  --bs-primary: var(--color-navy);
+  --bs-secondary: var(--color-sage);
+  --bs-success: var(--color-forest);
+  --bs-danger: var(--color-coral);
+  --bs-warning: var(--color-sun);
+  --bs-info: var(--color-sky);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Utility class */
+.font-script {
+  font-family: var(--font-family-script) !important;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  line-height: 1.1;
+}
+/* === Custom utilities (add to app/globals.css) === */
+
+/* Backgrounds */
+.bg-sky   { background-color: var(--color-sky) !important; }
+.bg-coral { background-color: var(--color-coral) !important; }
+.bg-navy  { background-color: var(--color-navy) !important; }
+.bg-forest{ background-color: var(--color-forest) !important; }
+.bg-rose  { background-color: var(--color-rose) !important; }
+.bg-sage  { background-color: var(--color-sage) !important; }
+.bg-sun   { background-color: var(--color-sun) !important; }
+
+/* Text */
+.text-sky   { color: var(--color-sky) !important; }
+.text-coral { color: var(--color-coral) !important; }
+.text-navy  { color: var(--color-navy) !important; }
+.text-forest{ color: var(--color-forest) !important; }
+.text-rose  { color: var(--color-rose) !important; }
+.text-sage  { color: var(--color-sage) !important; }
+.text-sun   { color: var(--color-sun) !important; }
+
+/* Borders */
+.border-sage   { border-color: var(--color-sage) !important; }
+.border-forest { border-color: var(--color-forest) !important; }
+.border-rose   { border-color: var(--color-rose) !important; }
+
+/* Buttons (extra variants) */
+.btn-coral {
+  background-color: var(--color-coral);
+  border-color: var(--color-coral);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 0.6rem 1.4rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+.btn-coral:hover {
+  background-color: #d95b4d;
+  border-color: #d95b4d;
+  color: #fff;
+}
+.btn-navy-outline {
+  color: var(--color-navy);
+  border: 1px solid var(--color-navy);
+  background: transparent;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 0.6rem 1.4rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+.btn-navy-outline:hover {
+  background: var(--color-navy);
+  color: #fff;
 }
 
-html,
+/* === FAQ Button Theme === */
+.btn-faq {
+  background-color: var(--color-sky);          /* pale blue base */
+  border: 2px solid var(--color-navy);
+  color: var(--color-navy);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 0.6rem 1.4rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-faq:hover,
+.btn-faq:focus {
+  background-color: var(--color-coral);        /* coral hover */
+  border-color: var(--color-coral);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Soft section shell */
+.section-soft {
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid var(--color-sage);
+}
+
+/* Apply font globally */
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-family-base);
+  font-size: 1.075rem; /* ~17.2px; feels airier without breaking layout */
+  line-height: 1.6;    /* improves readability globally */
+  color: var(--bs-body-color);
+  background-color: var(--color-sage);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* Headings and text */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  font-family: var(--font-family-base);
+  font-weight: 600;
+  color: var(--color-navy) !important;
 }
 
+/* Links */
 a {
-  color: inherit;
+  color: var(--color-navy);
   text-decoration: none;
 }
+a:hover {
+  color: var(--color-coral);
+  text-decoration: underline;
+}
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* === Unified brand button (filled) === */
+.btn-brand {
+  background-color: var(--color-coral); /* your coral */
+  border: 2px solid var(--color-coral);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.6rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 14px rgba(243, 108, 91, 0.25);
+}
+.btn-brand:hover,
+.btn-brand:focus {
+  background-color: #d95b4d;
+  border-color: #d95b4d;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(217, 91, 77, 0.28);
+}
+
+/* Secondary action (if you want a second filled style) */
+.btn-brand-2 {
+  background-color: var(--color-navy);
+  border: 2px solid var(--color-navy);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.6rem;
+  transition: all 0.2s ease;
+}
+.btn-brand-2:hover,
+.btn-brand-2:focus {
+  background-color: #1b476b; /* slightly darker navy */
+  border-color: #1b476b;
+  color: #fff;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: var(--color-sage) !important;
+  border-bottom: 2px solid var(--color-forest) !important;
+}
+
+.navbar-brand,
+.nav-link {
+  font-weight: 600;
+  color: var(--color-navy) !important;
+}
+.nav-link:hover {
+  color: var(--color-coral) !important;
+}
+
+/* Accent elements */
+hr {
+  border-top: 2px solid var(--color-coral);
+  opacity: 0.75;
+}
+
+/* Cards and sections */
+.card {
+  border: 1px solid var(--color-sage);
+  border-radius: 0.75rem;
+}
+.card-title {
+  color: var(--color-navy);
+}
+
+/* === Image carousel frame ===
+   - Uses a responsive height so slides look good on phones & desktops
+   - Images are object-contain (letterboxed if needed) to preserve aspect ratio */
+.carousel-frame {
+  position: relative;
+  height: clamp(220px, 50vw, 560px);
+  background: var(--color-sage);  /* ✅ match page background */
+  border: 1px solid rgba(35,91,140,0.1); /* faint navy outline */
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* Optional: subtle backdrop for letterbox edges */
+.carousel-frame::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.02);
+}
+
+/* === Carousel thumbnails === */
+.carousel-thumbs {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.25rem;
+}
+
+.carousel-thumb {
+  position: relative;
+  width: 90px;
+  height: 60px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+.carousel-thumb.active {
+  border-color: var(--color-coral);
+}
+
+/* Make Bootstrap carousel control icons black */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1) brightness(0) saturate(100%); /* turns default white to black */
+}
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.45); /* translucent dark layer */
+  color: #fff;                      /* pure white text */
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6); /* improves contrast on bright areas */
+}
+
+.carousel-caption h5 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.carousel-caption p {
+  margin-bottom: 0;
+  font-size: 0.95rem;
+}
+
+/* === Coral divider (nice accent under headings) === */
+.divider-coral {
+  width: 78px;
+  height: 4px;
+  background: var(--color-coral);
+  border-radius: 8px;
+  margin: 0.75rem auto 0;
+}
+
+/* === Hero image niceties === */
+.hero-image {
+  object-fit: cover;
+  max-height: 520px;
+  border-radius: 1rem;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+
+@media (max-width: 576px) {
+  .btn-brand { padding: 0.65rem 1.1rem; }
 }

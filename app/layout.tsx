@@ -1,22 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./globals.css";
 import Link from 'next/link'; // Use Next.js client-side navigation for internal routes
-import 'bootstrap/dist/css/bootstrap.min.css'
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Ivy & Adrian's Wedding",
-  description: "A website for information about Ivy & Adrian's Wedding",
+  description: "Wedding of Ivy & Adrian — 5/23/26 at Tyler Arboretum, Media, PA",
+  icons: {
+    icon: '/tree-icon.png',         // ✅ replaces default
+    shortcut: '/tree-icon.png',
+    apple: '/tree-icon.png',
+  },
 };
 
 export default function RootLayout({
@@ -26,6 +20,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Font: Source Serif Pro */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&display=swap"
+          rel="stylesheet"
+        />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" 
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <nav className="navbar navbar-expand-md navbar-light bg-white border-bottom">
           <div className="container">
@@ -46,13 +51,16 @@ export default function RootLayout({
                   <Link className="nav-link" href="/story">Our Story</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/logistics">Logistics</Link>
+                  <Link className="nav-link" href="/logistics">Lodging & Logistics</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/rsvp">RSVP</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/registry">Registry</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/faq">FAQ</Link>
                 </li>
               </ul>
             </div>

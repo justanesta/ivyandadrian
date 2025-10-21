@@ -1,42 +1,49 @@
 // app/thank-you/page.tsx
-// Thank-you page that adapts copy based on ?attending=yes|no
-// and is forced dynamic so query params are always respected.
+// Server component version (no client hooks) that adapts copy + colors based on ?attending=
+// Uses dynamic rendering so query params are honored on each request.
 
-export const dynamic = 'force-dynamic' // ← ensure query string is read on each request
-export const revalidate = 0            // ← no caching
+import Link from 'next/link'
+
+export const dynamic = 'force-dynamic' // ensure query string is always read
+export const revalidate = 0
 
 type PageProps = {
   searchParams: Promise<{ attending?: string }>
 }
 
 export default async function ThankYouPage({ searchParams }: PageProps) {
-  // Next 15: searchParams is a Promise
+  // In App Router, searchParams is a Promise in server components
   const sp = await searchParams
-  const attending = (sp.attending || '').toLowerCase()
-  const isYes = attending === 'yes' || attending === 'true' || attending === '1'
+  const attending = (sp.attending || '').toLowerCase() === 'yes'
+
+  const bgClass = attending ? 'bg-rose' : 'bg-sky' // rose for yes, sky for no
+  const textColor = 'text-navy'
 
   return (
-    <main className="container py-5 text-center" style={{ maxWidth: 720 }}>
-      <h1 className="display-6 mb-4">{isYes ? 'Thank you!' : 'Thanks for letting us know'}</h1>
-
-      {isYes ? (
-        <>
-          <p className="lead mb-4">
-            We’ve received your RSVP and can’t wait to celebrate with you!
-          </p>
-          <p>If needed, we’ll follow up with additional details as the day approaches.</p>
-        </>
-      ) : (
-        <>
-          <p className="lead mb-4">
-            We’re sorry you can’t make it, but we appreciate the update.
-          </p>
-          <p>If your plans change, you can revisit your personalized link any time.</p>
-        </>
-      )}
-
-      <hr className="my-4" />
-      <p className="text-muted">With love, Ivy &amp; Adrian</p>
+    <main className={`${bgClass} min-vh-100 d-flex align-items-center`}>
+      <div className="container py-5 text-center">
+        {attending ? (
+          <>
+            <h1 className={`display-6 fw-semibold ${textColor} mb-3`}>
+              We’ve received your RSVP and can’t wait to celebrate with you!
+            </h1>
+            <p className="lead mb-4">
+              If needed, we’ll follow up with additional details as the day approaches.
+            </p>
+            <Link href="/" className="btn btn-coral">Back to Home</Link>
+          </>
+        ) : (
+          <>
+            <h1 className={`display-6 fw-semibold ${textColor} mb-3`}>
+              We’re sorry you can’t make it, but we appreciate the update.
+            </h1>
+            <p className="lead mb-4">
+              If your plans change, you can revisit your personalized link any time.
+            </p>
+            <Link href="/" className="btn btn-navy-outline">Return Home</Link>
+          </>
+        )}
+      </div>
     </main>
   )
 }

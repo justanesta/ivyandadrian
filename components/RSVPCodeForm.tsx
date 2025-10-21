@@ -49,7 +49,7 @@ export default function RSVPCodeForm() {
           spellCheck={false}
         />
         <div className="form-text">
-          This code is printed on your invitation. Letters only.
+          This code is printed on your invitation.
         </div>
       </div>
 
