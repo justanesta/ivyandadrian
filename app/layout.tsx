@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./globals.css";
 import Link from 'next/link'; // Use Next.js client-side navigation for internal routes
+import {Source_Serif_4, Dancing_Script} from 'next/font/google'
 
 export const metadata: Metadata = {
   title: "Ivy & Adrian's Wedding",
@@ -13,6 +14,17 @@ export const metadata: Metadata = {
   },
 };
 
+const sourceSerif = Source_Serif_4({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+})
+
+const dancingScript = Dancing_Script({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-family-script', // optional CSS var you can use in CSS
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,18 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Google Font: Source Serif Pro */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" 
-          rel="stylesheet"
-        />
-      </head>
-      <body>
+      <body className={`${sourceSerif.className} ${dancingScript.variable}`} style={{ backgroundColor: 'var(--color-sage)' }}>
         <nav className="navbar navbar-expand-md navbar-light bg-white border-bottom">
           <div className="container">
             <Link className="navbar-brand fw-bold" href="/">

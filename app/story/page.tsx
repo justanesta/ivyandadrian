@@ -48,7 +48,7 @@ export default function OurStoryPage() {
       </section>
       <div className="divider-coral mb-3"></div>
       <section className="border rounded border-forest mb-4 bg-sky p-3 h-100">
-        <p>We have been so fortunate to find solace, support, and joy in each other's company. In the last four years we have shared countless travels, apartments, and cities as our relationship has blossomed and fortified. We can't wait to take this next step and start the rest of our lives together. Thank you for being a part of our story and we can't wait to celebrate this moment with you!</p>
+        <p>We have been so fortunate to find solace, support, and joy in each other&#39;s company. In the last four years we have shared countless travels, apartments, and cities as our relationship has blossomed and fortified. We can&#39;t wait to take this next step and start the rest of our lives together. Thank you for being a part of our story and we are looking forward to celebrating this moment with you!</p>
       </section>
 
       {/* ===== Image Carousel ===== */}

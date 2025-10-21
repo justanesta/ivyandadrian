@@ -8,53 +8,64 @@
 // • Bootstrap JS bundle loaded (for carousel controls)
 // • Images exist under /public/images/... but src should be "/images/..."
 // • Add the CSS in globals.css (carousel-frame + thumbnail classes)
+// Bootstrap carousel using Next/Image, with optional captions + thumbnail strip.
+// - Correct TypeScript types (no `any`), no unused vars
+// - Uses Bootstrap's custom event name 'slid.bs.carousel' with a generic Event
 
 'use client'
 
 import Image from 'next/image'
 import { useEffect, useId, useRef, useState } from 'react'
 
-// Types
+// Types for slides and props
 export type Slide = {
-  src: string             // e.g. '/images/engagement-1.jpg'  (NO '/public')
+  src: string            // e.g. '/images/engagement-1.jpg' (NO '/public')
   alt?: string
-  captionTitle?: string   // optional: appears on slide
-  captionText?: string    // optional: secondary line
+  captionTitle?: string  // optional: appears on slide
+  captionText?: string   // optional: secondary line
 }
 
 type Props = {
   slides: Slide[]
   className?: string
-  showCaptions?: boolean  // default: false
-  showThumbnails?: boolean// default: false
+  showCaptions?: boolean   // default: false
+  showThumbnails?: boolean // default: false
 }
 
 export default function ImageCarousel({
   slides,
   className,
   showCaptions = false,
-  showThumbnails = false
+  showThumbnails = false,
 }: Props) {
   const id = useId()
   const carouselId = `carousel-${id.replace(/:/g, '')}`
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState<number>(0)
   const ref = useRef<HTMLDivElement | null>(null)
 
   // Keep active index in sync when the carousel slides (for active thumb highlight)
   useEffect(() => {
-    if (!ref.current) return
-
-    // Bootstrap 5 emits 'slid.bs.carousel' events
     const el = ref.current
-    const handler = (e: any) => {
-      const next = el.querySelector('.carousel-item.active')
+    if (!el) return
+
+    // ✅ Use Event (not any). We don't need the event object itself.
+    const handler = (_ev: Event) => {
+      // Find the newly active .carousel-item
+      const next = el.querySelector<HTMLDivElement>('.carousel-item.active')
       if (!next) return
-      const idx = Array.from(el.querySelectorAll('.carousel-item')).indexOf(next)
+      const items = Array.from(
+        el.querySelectorAll<HTMLDivElement>('.carousel-item')
+      )
+      const idx = items.indexOf(next)
       if (idx >= 0) setActive(idx)
     }
 
-    el.addEventListener('slid.bs.carousel', handler as any)
-    return () => el.removeEventListener('slid.bs.carousel', handler as any)
+    // Bootstrap dispatches a custom DOM event name: 'slid.bs.carousel'
+    el.addEventListener('slid.bs.carousel', handler)
+
+    return () => {
+      el.removeEventListener('slid.bs.carousel', handler)
+    }
   }, [])
 
   if (!slides?.length) return null
@@ -100,7 +111,7 @@ export default function ImageCarousel({
 
               {/* Optional caption overlay */}
               {showCaptions && (s.captionTitle || s.captionText) && (
-                <div className="carousel-caption d-none d-md-block">
+                <div className="carousel-caption">
                   {s.captionTitle && <h5 className="fw-semibold">{s.captionTitle}</h5>}
                   {s.captionText && <p className="mb-0">{s.captionText}</p>}
                 </div>

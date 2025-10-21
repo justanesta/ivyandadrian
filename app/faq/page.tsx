@@ -1,6 +1,7 @@
 // app/faq/page.tsx
 // Server component: Frequently Asked Questions.
 // Fill in or edit answers as needed; this is a friendly starting point.
+import Link from 'next/link'; // Use Next.js client-side navigation for internal routes
 
 export default function FAQPage() {
   return (
@@ -40,7 +41,7 @@ export default function FAQPage() {
         <section className="border rounded p-3 bg-sky">
           <h2 className="h5 mb-2">Where are you registered?</h2>
           <p className="mb-0">
-            You’ll find gift ideas and a home fund on our <a href="/registry" className="text-forest">Registry</a> page.
+            You’ll find gift ideas and a home fund on our <Link href="/registry" className="text-forest">Registry</Link> page.
           </p>
         </section>
 
@@ -56,7 +57,7 @@ export default function FAQPage() {
         <section className="border rounded p-3 bg-sky">
           <h2 className="h5 mb-2">Will there be updates before the wedding?</h2>
           <p className="mb-0">
-            If you provide an email on the <a href="/rsvp" className="text-forest">RSVP form</a>, we’ll share any important updates there.
+            If you provide an email on the <Link href="/rsvp" className="text-forest">RSVP form</Link>, we’ll share any important updates there.
           </p>
         </section>
       </div>

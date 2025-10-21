@@ -30,7 +30,7 @@ export default function LoginPage() {
       } else {
         setErr(await res.text() || 'Incorrect password')
       }
-    } catch (e) {
+    } catch (_err) {
       setErr('Network error')
     } finally {
       setLoading(false)
