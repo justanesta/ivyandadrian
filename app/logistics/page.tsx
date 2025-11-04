@@ -40,7 +40,7 @@ export default function LogisticsPage() {
               />
             </figure>
             <figcaption className="form-text text-center mt-2 text-navy">
-              Downtown West Chester, PA
+              West Chester, PA
             </figcaption>
           </div>
 
