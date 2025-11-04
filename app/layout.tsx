@@ -32,10 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${sourceSerif.className} ${dancingScript.variable}`} style={{ backgroundColor: 'var(--color-sage)' }}>
+      <body className={`${sourceSerif.className} ${dancingScript.variable}`}>
         <nav className="navbar navbar-expand-md navbar-light bg-white border-bottom">
           <div className="container">
-            <Link className="navbar-brand fw-bold" href="/">
+            <Link className="navbar-brand fw-bold" href="/" style={{ fontSize: '2rem', lineHeight: 1.1 }}>
               Ivy &amp; Adrian
             </Link>
             <button

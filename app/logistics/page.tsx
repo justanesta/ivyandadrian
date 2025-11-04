@@ -10,7 +10,7 @@ export default function LogisticsPage() {
   return (
     <main className="container py-5" style={{ maxWidth: 1000 }}>
       <header className="mb-4 text-center text-md-start">
-        <h1 className="h3 text-navy">Lodging &amp; Logistics</h1>
+        <h1 className="h1 text-navy">Lodging &amp; Logistics</h1>
         <p className="text-muted mb-0">Hotel blocks, booking deadlines, and travel options.</p>
       </header>
 
@@ -47,11 +47,9 @@ export default function LogisticsPage() {
           {/* Optional blurb to balance the image; edit or remove as you like */}
           <div className="col-12 col-md-7">
             <div className="section-soft bg-sky border-forest">
-              <h2 className="h5 text-navy mb-2">Staying in West Chester</h2>
+              <h2 className="h3 text-navy mb-2">Staying in West Chester</h2>
               <p className="mb-0">
-                West Chester is a walkable town with restaurants, cafes, and bars. Our hotel blocks
-                are downtown so you have good acces. Shuttles will run between West Chester and
-                the venue in Media on the wedding day.
+                We have set up two hotel blocks in downtown West Chester, PA. West Chester is very walkable with many restaurants, shops, and bars.
               </p>
             </div>
           </div>
@@ -60,11 +58,11 @@ export default function LogisticsPage() {
 
       {/* ===== Hotel Blocks ===== */}
       <section className="mb-5">
-        <h2 className="h5 text-navy mb-3">Hotel Blocks</h2>
+        <h2 className="h2 text-navy mb-3">Hotel Blocks</h2>
         <div className="row g-4">
           <div className="col-12 col-md-6">
             <div className="section-soft bg-sky border-forest h-100">
-              <h3 className="h6 text-navy mb-1">Hotel Warner</h3>
+              <h3 className="h3 text-navy mb-1">Hotel Warner</h3>
               <p className="text-muted mb-2">
                 120 N High St, West Chester, PA 19380 — Reserve by{' '}
                 <strong><span className="text-forest">April 26th, 2026</span></strong>.
@@ -89,7 +87,7 @@ export default function LogisticsPage() {
           {/* Duplicate/modify this column per hotel */}
           <div className="col-12 col-md-6">
             <div className="section-soft bg-sky border-forest h-100">
-              <h3 className="h6 text-navy mb-1">Hotel Indigo</h3>
+              <h3 className="h3 text-navy mb-1">Hotel Indigo</h3>
               <p className="text-muted mb-2">
                 39 E Gay St, West Chester, PA 19380 — Reserve by{' '}
                 <strong><span className="text-forest">March 23rd, 2026</span></strong>.
@@ -115,29 +113,27 @@ export default function LogisticsPage() {
 
       {/* ===== Transportation Callout ===== */}
       <section className="mb-5">
-        <h2 className="h5 text-navy mb-2">Wedding Transportation</h2>
+        <h2 className="h2 text-navy mb-2">Transportation</h2>
         <div className="section-soft border-forest bg-sky">
           <p className="mb-0">
-            Shuttles will run between hotels in <strong><span className="text-forest">West Chester, PA</span></strong> and
-            the venue in <strong><span className="text-forest">Media, PA</span></strong>. Indicate whether you’ll use the
-            shuttle on the RSVP page. West Chester is walkable; consider not bringing a car unless needed to get to town.
+            On the wedding day, buses will run from the hotels in <strong><span className="text-forest">West Chester</span></strong> to the wedding venue in <strong><span className="text-forest">Media</span></strong>. Upon receiving your invitation, please indicate whether you plan to use the bus.
           </p>
         </div>
       </section>
 
       {/* ===== Getting Here ===== */}
       <section>
-        <h2 className="h5 text-navy mb-3">Getting Here</h2>
+        <h2 className="h2 text-navy mb-3">Getting Here</h2>
         <div className="row g-4">
           <div className="col-12 col-md-6">
             <div className="border rounded border-forest p-3 h-100 bg-sky">
-              <h3 className="h6 text-navy">By Train</h3>
+              <h3 className="h3 text-navy">By Train</h3>
               <p className="mb-0">The nearest rail station to West Chester is in Exton, PA which is serviced by <a href="https://www.septa.org/stations/exton-station" className="text-forest">SEPTA regional rail</a> on the Paoli/Thorndale Line and <a href="https://www.amtrak.com/stations/ext" className="text-forest">Amtrak</a> via the Keystone Service and the Pennsylvanian. Downtown West Chester is a 10 minute rideshare/taxi ride from the Exton Station.</p>
             </div>
           </div>
           <div className="col-12 col-md-6">
             <div className="border rounded border-forest p-3 h-100 bg-sky">
-              <h3 className="h6 text-navy">By Plane</h3>
+              <h3 className="h3 text-navy">By Plane</h3>
               <p className="mb-0">The nearest airport is the <a href="https://www.phl.org/" className="text-forest">Philadelphia International Airport (PHL)</a>. There are direct flights from Minneapolis/Saint Paul, San Diego, Boston, San Francisco, Greensboro/High Point, Asheville, Cleveland, and Edinburgh. Downtown West Chester is typically a 45 minute rideshare/taxi ride from PHL.</p>
             </div>
           </div>

@@ -12,9 +12,13 @@ export default function OurStoryPage() {
   return (
     <main className="container py-5" style={{ maxWidth: 1000 }}>
       {/* Soft banner using Sky */}
-      <header className="mb-4 section-soft bg-sky">
-        <h1 className="h3 text-navy mb-1 font-script">Our Story</h1>
-        <p className="text-muted mb-0">How we met, falling in love, and the engagement.</p>
+      <header className="mb-4">
+        <h1
+          className="h1 text-navy mb-1 font-script text-center"
+          style={{ fontSize: '4rem', lineHeight: 1.1 }}
+        >
+          Our Story
+        </h1>
       </header>
       <div className="divider-coral mb-3"></div>
 
@@ -34,21 +38,21 @@ export default function OurStoryPage() {
       {/* Sections */}
       <section className="border rounded border-forest mb-4 bg-sky p-3 h-100">
         <h2 className="h5 text-navy">How We Met</h2>
-        <p>In the summer of 2021, Ivy started working in the same department as Adrian at Dotdash. Ivy likes to say she met Adrian at work. Adrian likes to say he met Ivy online. (Technically both are true.) After a few work-facilitated dates on Zoom and eventually meeting in person, we went on our first date at the Museum of the City of New York that fall. At the museum, we learned more about the city that would serve as the backdrop of our love.</p>
+        <p>We met in the summer of 2021, when Ivy started working in the same department as Adrian at Dotdash (now People, Inc.). Ivy likes to say we met at work. Adrian likes to say we met online. Technically, since the work was completely remote at the time, both are true. After a few “water-cooler Zoom chats” on late Tuesdays afternoons that our entire team was invited to, but only we attended, we eventually met in person in the fall of that year and went on our first date at the Museum of the City of New York - learning more about the city that would become the backdrop of our love.</p>
       </section>
 
       <section className="border rounded border-forest mb-4 bg-sky p-3 h-100">
         <h2 className="h5 text-navy">Building Our Relationship</h2>
-        <p>As seasons turned into years, long train trips and bike rides across Brooklyn shortened with each successive move into closer — and eventually the same — apartment. In between them we shared a literal trip around the world along with countless meals, laughs, and lively discussions. During this time we cultivated a wonderful and supportive community of both friends and family whom we treasure dearly.</p>
+        <p>As seasons turned into years, long train trips and bike rides across Brooklyn shortened with each successive move into closer — and eventually the same — apartments. Along the way, we shared a trip around the world, countless meals, laughs, and lively conversations!</p>
       </section>
 
       <section className="border rounded border-forest mb-4 bg-sky p-3 h-100">
         <h2 className="h5 text-navy">The Proposal</h2>
-        <p>Ever since we met, Adrian expressed his dream of being proposed to. Ivy did as well. So naturally, we decided why not do both? To celebrate the beginning of summer, we took a quiet trip to Lake George, NY. No one knew we were planning to get engaged. On June 20, Ivy — while seated — proposed to Adrian on a balcony overlooking the lake at their bed & breakfast. The next day Adrian — on one knee — proposed to Ivy at the top of Prospect Mountain.</p>
+        <p>Ever since we met, Adrian expressed his dream of being proposed to. Ivy did as well. So naturally, we decided why not do both? To celebrate the beginning of summer, we took a quiet trip to Lake George, NY. No one knew we were planning to get engaged. On June 20, Ivy — while seated — proposed to Adrian on a balcony overlooking the lake at our bed & breakfast. The next day Adrian — on one knee — proposed to Ivy at the top of Prospect Mountain.</p>
       </section>
       <div className="divider-coral mb-3"></div>
       <section className="border rounded border-forest mb-4 bg-sky p-3 h-100">
-        <p>We have been so fortunate to find solace, support, and joy in each other&#39;s company. In the last four years we have shared countless travels, apartments, and cities as our relationship has blossomed and fortified. We can&#39;t wait to take this next step and start the rest of our lives together. Thank you for being a part of our story and we are looking forward to celebrating this moment with you!</p>
+        <p>We have been so fortunate to find solace, support, and joy in each other&#39;s company. In the last four years we have shared countless travels, apartments, and cities as our relationship has blossomed and fortified. During our time together, we have cultivated a wonderful and supportive community of both family and friends whom we treasure dearly. We can&#39;t wait to take this next step as a couple and start the rest of our lives together. Thank you for being a part of our story and we are looking forward to celebrating this moment with you!</p>
       </section>
 
       {/* ===== Image Carousel ===== */}

@@ -10,7 +10,7 @@ import Image from 'next/image'
 
 export default function HomePage() {
   return (
-    <main className="bg-sage">
+    <main>
       {/* ===== Top section: copy first, image second ===== */}
       <section className="py-5">
         <div className="container">
@@ -23,7 +23,7 @@ export default function HomePage() {
 
             <div className="divider-coral" />
 
-            <p className="lead mt-3 mb-1 text-navy">May 23, 2026</p>
+            <p className="lead mt-3 mb-1 text-navy" style={{ fontSize: '2rem', lineHeight: 1.1 }}>May 23, 2026</p>
             <p className="lead text-navy opacity-75"><a href="https://tylerarboretum.org/">Tyler Arboretum</a> — Media, PA</p>
 
             {/* Uniform filled buttons */}

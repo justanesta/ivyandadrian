@@ -137,6 +137,14 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-navy) !important;
 }
 
+/* Boxes and cards across all pages */
+.section-soft,
+.card,
+section.border {
+  background-color: var(--color-sky) !important;
+  border: 2px solid var(--color-sage) !important;
+}
+
 /* Links */
 a {
   color: var(--color-navy);
@@ -280,6 +288,7 @@ hr {
 
 /* === Coral divider (nice accent under headings) === */
 .divider-coral {
+  display: block;
   width: 78px;
   height: 4px;
   background: var(--color-coral);

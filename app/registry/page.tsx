@@ -7,7 +7,7 @@ import Image from 'next/image'
 export default function RegistryPage() {
   return (
     <main className="container py-5" style={{ maxWidth: 900 }}>
-      <h1 className="h3 mb-4 text-center text-navy">Registry</h1>
+      <h1 className="h1 mb-4 text-center text-navy">Registry</h1>
       <p className="text-muted text-center mb-5">
         If you’d like to give us a gift, here are a handful of options.
       </p>
@@ -63,9 +63,9 @@ export default function RegistryPage() {
             </div>
 
             <div className="card-body d-grid gap-2">
-              <h2 className="h5 card-title mb-1 text-navy">Our First Home</h2>
+              <h2 className="h2 card-title mb-1 text-navy">Our First Home</h2>
               <p className="card-text text-muted">
-                Help us create our first home together.
+                Help us buy our first home together.
               </p>
               <a
                 className="btn btn-brand"
@@ -98,7 +98,7 @@ export default function RegistryPage() {
             </div>
 
             <div className="card-body d-grid gap-2">
-              <h2 className="h5 card-title mb-1 text-navy">Our Honeymoon Fund</h2>
+              <h2 className="h2 card-title mb-1 text-navy">Our Honeymoon Fund</h2>
               <p className="card-text text-muted">
                 Contribute toward our honeymoon adventure.
               </p>
