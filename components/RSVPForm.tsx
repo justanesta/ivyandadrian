@@ -43,12 +43,22 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
   // Optional email
   const [email, setEmail] = useState('')
 
+  const DINNER_CHOICES = [
+    { title: 'Flat Iron Steak', blurb: 'Red wine glaze sauce' },
+    { title: 'Australian Sea Bass', blurb: 'Sunflower romesco sauce' },
+    { title: 'Hearts of Palm Cake', blurb: 'Curried lentils, tomato watercress salad, mustard vinaigrette. Vegan & gluten free.' },
+  ] as const
+
+  type DinnerChoiceTitle = (typeof DINNER_CHOICES)[number]['title']
+  const [dinnerChoice, setDinnerChoice] = useState<DinnerChoiceTitle | ''>('')
+
   // When attending toggles: reset dependent fields
   useEffect(() => {
     if (attending === false) {
       setBringPlusOne(false)
       setPlusOneName('')
       setNeedsTransport(false)
+      setDinnerChoice('')
     }
   }, [attending])
 
@@ -64,11 +74,12 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
   const canSubmit = useMemo(() => {
     if (typeof attending === 'undefined') return false
     if (!isEmailValid(email)) return false
+    if (attending === true && !dinnerChoice) return false
     if (attending && allowPlusOne && bringPlusOne) {
       return plusOneName.trim().length > 0
     }
     return true
-  }, [attending, allowPlusOne, bringPlusOne, plusOneName, email])
+  }, [attending, dinnerChoice, allowPlusOne, bringPlusOne, plusOneName, email])
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -88,6 +99,7 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
             ? plusOneName.slice(0, 80).trim()
             : null,
           needs_transport: attending ? needsTransport : false,
+          dinner_choice: attending ? dinnerChoice : null,
           dietary_notes: notes.slice(0, 500).trim(),
           song_request: song.slice(0, 120).trim(),
           email: email.trim() || null
@@ -190,6 +202,39 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
         </div>
       )}
 
+      {/* Dinner choice (only relevant if attending) */}
+      {attending === true && (
+        <div>
+          <label className="form-label d-block">Dinner selection</label>
+
+          <div className="d-grid gap-2">
+            {DINNER_CHOICES.map((opt) => {
+              const id = `dinner-${opt.title.replace(/\s+/g, '-').toLowerCase()}`
+              return (
+                <div className="form-check" key={opt.title}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="dinnerChoice"
+                    id={id}
+                    checked={dinnerChoice === opt.title}
+                    onChange={() => setDinnerChoice(opt.title)}
+                  />
+                  <label className="form-check-label" htmlFor={id}>
+                    <strong>{opt.title}</strong>
+                    <div className="text-muted" style={{ fontSize: '.95rem' }}>
+                      {opt.blurb}
+                    </div>
+                  </label>
+                </div>
+              )
+            })}
+          </div>
+
+          <div className="form-text">Please select one option.</div>
+        </div>
+      )}
+
       {/* Dietary notes */}
       <div>
         <label className="form-label" htmlFor="notes">Dietary notes</label>
@@ -207,12 +252,12 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
 
       {/* Favorite dance song */}
       <div>
-        <label className="form-label" htmlFor="song">Favorite wedding dance song</label>
+        <label className="form-label" htmlFor="song">What song makes you hit the dance floor?</label>
         <input
           id="song"
           className="form-control"
           type="text"
-          placeholder="e.g., 'September — Earth, Wind & Fire'"
+          placeholder="e.g., 'Orinoco Flow by Enya'"
           maxLength={120}
           value={song}
           onChange={(e) => setSong(e.target.value)}

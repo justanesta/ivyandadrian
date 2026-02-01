@@ -3,6 +3,8 @@
 // Uses Next/Image for optimization and consistent styling.
 
 import Image from 'next/image'
+import FundButtons from "../../components/FundButtons"; 
+
 
 export default function RegistryPage() {
   return (
@@ -13,37 +15,39 @@ export default function RegistryPage() {
       </p>
 
       <div className="row g-4">
-             {/* Gift Registry A */}
-             {/* <div className="col-12 col-md-6">
-//           <div className="card h-100 shadow-sm">
-//             <img src="/images/registry-home-kitchen.jpg" className="card-img-top" alt="Home & kitchen" />
-//             <div className="card-body d-grid gap-2">
-//               <h2 className="h5 card-title mb-1">Home &amp; Kitchen</h2>
-//               <p className="card-text text-muted">
-//                 Browse a curated list of items for our home together.
-//               </p>
-//               <a className="btn btn-dark" href="https://example.com/registry-home" target="_blank" rel="noreferrer">
-//                 View Gift List
-//               </a>
-//             </div>
-//           </div>
-//         </div> */}
+        {/* === Crate & Barrel Registry === */}
+        <div className="col-12 col-md-6">
+          <div className="card h-100 shadow-sm bg-sky border-forest">
+            <div className="position-relative" style={{ height: '220px', overflow: 'hidden' }}>
+              <Image
+                src="/images/registry-crate-and-barrel.png"
+                alt="Crate & Barrel registry"
+                fill
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
+                className="rounded-top"
+                priority={false}
+              />
+            </div>
 
-            {/* Gift Registry B */}
-            {/* <div className="col-12 col-md-6">
-//           <div className="card h-100 shadow-sm">
-//             <img src="/images/registry-travel.jpg" className="card-img-top" alt="Travel & experiences" />
-//             <div className="card-body d-grid gap-2">
-//               <h2 className="h5 card-title mb-1">Travel &amp; Experiences</h2>
-//               <p className="card-text text-muted">
-//                 Help us make memories with experiences and adventures.
-//               </p>
-//               <a className="btn btn-dark" href="https://example.com/registry-travel" target="_blank" rel="noreferrer">
-//                 View Gift List
-//               </a>
-//             </div>
-//           </div>
-//         </div> */}
+            <div className="card-body d-flex flex-column gap-2">
+              <h2 className="h2 card-title mb-1 text-navy">Wedding Registry</h2>
+              <p className="card-text text-muted">
+                Browse our wedding registry for home essentials and upgrades.
+              </p>
+              <a
+                className="btn btn-brand mt-auto"
+                href="https://www.crateandbarrel.com/gift-registry/ivy-hammond-and-adrian-nesta/r7475750"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Registry
+              </a>
+            </div>
+          </div>
+        </div>
         {/* === Our First Home === */}
         <div className="col-12 col-md-6">
           <div className="card h-100 shadow-sm bg-sky border-forest">
@@ -62,19 +66,18 @@ export default function RegistryPage() {
               />
             </div>
 
-            <div className="card-body d-grid gap-2">
+            <div className="card-body d-flex flex-column gap-2">
               <h2 className="h2 card-title mb-1 text-navy">Our First Home</h2>
               <p className="card-text text-muted">
                 Help us buy our first home together.
               </p>
-              <a
-                className="btn btn-brand"
-                href="https://account.venmo.com/pay?recipients=ivyhammond"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Contribute
-              </a>
+              <div className="mt-auto">
+              <FundButtons
+                venmoHref="https://venmo.com/u/ivyhammond"
+                zelleQrSrc="/images/zelle-qr-code.png"
+                zelleTitle="Zelle"
+              />
+              </div>
             </div>
           </div>
         </div>
@@ -97,19 +100,18 @@ export default function RegistryPage() {
               />
             </div>
 
-            <div className="card-body d-grid gap-2">
+            <div className="card-body d-flex flex-column gap-2">
               <h2 className="h2 card-title mb-1 text-navy">Our Honeymoon Fund</h2>
               <p className="card-text text-muted">
                 Contribute toward our honeymoon adventure.
               </p>
-              <a
-                className="btn btn-brand"
-                href="https://account.venmo.com/pay?recipients=ivyhammond"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Contribute
-              </a>
+              <div className="mt-auto">
+              <FundButtons
+                venmoHref="https://venmo.com/u/ivyhammond"
+                zelleQrSrc="/images/zelle-qr-code.png"
+                zelleTitle="Zelle"
+              />
+              </div>
             </div>
           </div>
         </div>

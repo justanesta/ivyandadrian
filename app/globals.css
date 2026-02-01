@@ -166,6 +166,7 @@ a:hover {
   border-radius: 0.6rem;
   transition: all 0.2s ease;
   box-shadow: 0 6px 14px rgba(243, 108, 91, 0.25);
+  white-space: nowrap;
 }
 .btn-brand:hover,
 .btn-brand:focus {
@@ -192,6 +193,40 @@ a:hover {
   border-color: #1b476b;
   color: #fff;
 }
+
+/* Secondary button style to complement .btn-brand */
+.btn-outline-brand {
+  border: 2px solid var(--color-coral);
+  color: var(--color-coral);
+  background: transparent;
+  border-radius: .6rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+  padding: .7rem 1.4rem;
+}
+.btn-outline-brand:hover {
+  background: rgba(243, 108, 91, .12);
+}
+
+/* Lightweight modal */
+.modal-backdrop-custom {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 1050; /* above most content */
+}
+
+.modal-card-custom {
+  width: min(92vw, 520px);
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1rem 1rem 1.25rem;
+  box-shadow: 0 12px 28px rgba(0,0,0,.25);
+}
+
 
 /* Navbar styling */
 .navbar {

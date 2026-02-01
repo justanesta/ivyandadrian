@@ -23,6 +23,18 @@
 import { NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 
+const DINNER_CHOICES = [
+  'Flat Iron Steak',
+  'Australian Sea Bass',
+  'Hearts of Palm Cake',
+] as const
+
+type DinnerChoice = (typeof DINNER_CHOICES)[number]
+
+function isDinnerChoice(v: unknown): v is DinnerChoice {
+  return typeof v === 'string' && (DINNER_CHOICES as readonly string[]).includes(v)
+}
+
 // Clean text utility (normalize, strip control chars, trim, cap).
 function cleanText(input: unknown, max: number) {
   if (typeof input !== 'string') return null
@@ -79,6 +91,16 @@ export async function POST(req: Request) {
   const songRequest  = cleanText(body?.song_request, 120)
   const email        = cleanEmail(body?.email) // optional
 
+  // 5b) Dinner choice: required if attending === true
+  const dinnerChoice = attending ? body?.dinner_choice : null
+
+  if (attending === true) {
+    if (!isDinnerChoice(dinnerChoice)) {
+      return new NextResponse('Please select a dinner choice', { status: 400 })
+    }
+  }
+
+
   // 6) Upsert (guest_id unique)
   await sql`
     insert into rsvps (
@@ -92,6 +114,7 @@ export async function POST(req: Request) {
       song_request,
       invite_code,
       email
+      dinner_choice
     )
     values (
       ${guest.id},
@@ -103,7 +126,8 @@ export async function POST(req: Request) {
       ${dietaryNotes},
       ${songRequest},
       ${code},
-      ${email}
+      ${email},
+      ${dinnerChoice}
     )
     on conflict (guest_id) do update
       set attending       = excluded.attending,
@@ -114,6 +138,7 @@ export async function POST(req: Request) {
           song_request    = excluded.song_request,
           invite_code     = excluded.invite_code,
           email           = excluded.email,
+          dinner_choice   = excluded.dinner_choice
           submitted_at    = now()
   `
 
