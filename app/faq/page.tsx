@@ -25,7 +25,7 @@ export default function FAQPage() {
         <section className="border rounded p-3 bg-sky">
           <h2 className="h5 mb-2">What should I wear?</h2>
           <p className="mb-0">
-            <strong><span className="text-forest">Formal attire</span></strong> - but feel free to have fun with it! Add a splash of color, pattern, or personality! We’ll be moving around the arboretum as the evening progresses, so please wear comfortable shoes. If you’re wearing heels, we recommend block heels, as some parts of the venue will be on grass.
+            <strong><span className="text-forest">Cocktail attire</span></strong> - but feel free to have fun with it! Add a splash of color, pattern, or personality! We’ll be moving around the arboretum as the evening progresses, so please wear comfortable shoes. If you’re wearing heels, we recommend block heels, as some parts of the venue will be on grass.
           </p>
         </section>
 
