@@ -33,6 +33,9 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
   const [bringPlusOne, setBringPlusOne] = useState(false)
   const [plusOneName, setPlusOneName] = useState('')
 
+  // Plus-one dinner choice
+  const [plusOneDinnerChoice, setPlusOneDinnerChoice] = useState<DinnerChoiceTitle | ''>('')
+
   // Single transport checkbox
   const [needsTransport, setNeedsTransport] = useState(false)
 
@@ -44,8 +47,8 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
   const [email, setEmail] = useState('')
 
   const DINNER_CHOICES = [
-    { title: 'Flat Iron Steak', blurb: 'Red wine glaze sauce' },
-    { title: 'Australian Sea Bass', blurb: 'Sunflower romesco sauce' },
+    { title: 'Braised Brisket of Beef', blurb: 'Moroccan lemon sauce.' },
+    { title: 'Rosemary Chicken', blurb: 'Rosemary & sundried tomato cream sauce.' },
     { title: 'Hearts of Palm Cake', blurb: 'Curried lentils, tomato watercress salad, mustard vinaigrette. Vegan & gluten free.' },
   ] as const
 
@@ -57,6 +60,7 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
     if (attending === false) {
       setBringPlusOne(false)
       setPlusOneName('')
+      setPlusOneDinnerChoice('')
       setNeedsTransport(false)
       setDinnerChoice('')
     }
@@ -76,10 +80,10 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
     if (!isEmailValid(email)) return false
     if (attending === true && !dinnerChoice) return false
     if (attending && allowPlusOne && bringPlusOne) {
-      return plusOneName.trim().length > 0
+      return plusOneName.trim().length > 0 && !!plusOneDinnerChoice
     }
     return true
-  }, [attending, dinnerChoice, allowPlusOne, bringPlusOne, plusOneName, email])
+  }, [attending, dinnerChoice, allowPlusOne, bringPlusOne, plusOneName, plusOneDinnerChoice, email])
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -97,6 +101,9 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
           attending,
           plus_one_name: allowPlusOne && attending && bringPlusOne
             ? plusOneName.slice(0, 80).trim()
+            : null,
+          plus_one_dinner_choice: allowPlusOne && attending && bringPlusOne
+            ? (plusOneDinnerChoice || null)
             : null,
           needs_transport: attending ? needsTransport : false,
           dinner_choice: attending ? dinnerChoice : null,
@@ -156,7 +163,16 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
               type="checkbox"
               id="bringPlusOne"
               checked={bringPlusOne}
-              onChange={() => setBringPlusOne((v) => !v)}
+              onChange={() => {
+                setBringPlusOne((v) => {
+                  const next = !v
+                  if (!next) {
+                    setPlusOneName('')
+                    setPlusOneDinnerChoice('')
+                  }
+                  return next
+                })
+              }}
             />
             <label className="form-check-label" htmlFor="bringPlusOne">
               I’m bringing my plus one
@@ -164,22 +180,55 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
           </div>
 
           {bringPlusOne && (
-            <div>
-              <label className="form-label" htmlFor="plusOneName">Plus-one full name</label>
-              <input
-                id="plusOneName"
-                className="form-control"
-                type="text"
-                placeholder="Full legal/preferred name"
-                maxLength={80}
-                value={plusOneName}
-                onChange={(e) => setPlusOneName(e.target.value)}
-              />
-              <div className="form-text">Required if you’re bringing your plus one.</div>
-            </div>
+            <>
+              <div>
+                <label className="form-label" htmlFor="plusOneName">Plus-one full name</label>
+                <input
+                  id="plusOneName"
+                  className="form-control"
+                  type="text"
+                  placeholder="Full legal/preferred name"
+                  maxLength={80}
+                  value={plusOneName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPlusOneName(e.target.value)}
+                />
+                <div className="form-text">Required if you’re bringing your plus one.</div>
+              </div>
+
+              <div className="mt-3">
+                <label className="form-label d-block">Plus-one dinner selection</label>
+
+                <div className="d-grid gap-2">
+                  {DINNER_CHOICES.map((opt) => {
+                    const id = `plusone-dinner-${opt.title.replace(/\s+/g, '-').toLowerCase()}`
+                    return (
+                      <div className="form-check" key={opt.title}>
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="plusOneDinnerChoice"
+                          id={id}
+                          checked={plusOneDinnerChoice === opt.title}
+                          onChange={() => setPlusOneDinnerChoice(opt.title)}
+                        />
+                        <label className="form-check-label" htmlFor={id}>
+                          <strong>{opt.title}</strong>
+                          <div className="text-muted" style={{ fontSize: '.95rem' }}>
+                            {opt.blurb}
+                          </div>
+                        </label>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                <div className="form-text">Please select one option for your guest.</div>
+              </div>
+            </>
           )}
-        </div>
+          </div>
       )}
+
 
       {/* Single transport checkbox (only relevant if attending) */}
       {attending === true && (

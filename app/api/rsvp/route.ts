@@ -24,8 +24,8 @@ import { NextResponse } from 'next/server'
 import { sql } from '@/lib/db'
 
 const DINNER_CHOICES = [
-  'Flat Iron Steak',
-  'Australian Sea Bass',
+  'Braised Brisket of Beef',
+  'Rosemary Chicken',
   'Hearts of Palm Cake',
 ] as const
 
@@ -79,6 +79,16 @@ export async function POST(req: Request) {
   // 3) Single plus-one
   const rawPlusOneName = cleanText(body?.plus_one_name, 80)
   const bringPlusOne = !!(attending && guest.allow_plus_one && rawPlusOneName)
+  const rawPlusOneDinnerChoice = bringPlusOne ? body?.plus_one_dinner_choice : null
+
+  const plusOneDinnerChoice = bringPlusOne ? rawPlusOneDinnerChoice : null
+
+  if (bringPlusOne) {
+    if (!isDinnerChoice(plusOneDinnerChoice)) {
+      return new NextResponse('Please select a dinner choice for your guest', { status: 400 })
+    }
+  }
+
   const plusOneCount = bringPlusOne ? 1 : 0
   const plusOneName  = bringPlusOne ? rawPlusOneName : null
 
@@ -109,11 +119,12 @@ export async function POST(req: Request) {
       attending,
       plus_one_count,
       plus_one_name,
+      plus_one_dinner_choice,
       needs_transport,
       dietary_notes,
       song_request,
       invite_code,
-      email
+      email,
       dinner_choice
     )
     values (
@@ -122,6 +133,7 @@ export async function POST(req: Request) {
       ${attending},
       ${plusOneCount},
       ${plusOneName},
+      ${plusOneDinnerChoice},
       ${needsTransport},
       ${dietaryNotes},
       ${songRequest},
@@ -130,17 +142,19 @@ export async function POST(req: Request) {
       ${dinnerChoice}
     )
     on conflict (guest_id) do update
-      set attending       = excluded.attending,
-          plus_one_count  = excluded.plus_one_count,
-          plus_one_name   = excluded.plus_one_name,
-          needs_transport = excluded.needs_transport,
-          dietary_notes   = excluded.dietary_notes,
-          song_request    = excluded.song_request,
-          invite_code     = excluded.invite_code,
-          email           = excluded.email,
-          dinner_choice   = excluded.dinner_choice
-          submitted_at    = now()
+      set attending              = excluded.attending,
+          plus_one_count         = excluded.plus_one_count,
+          plus_one_name          = excluded.plus_one_name,
+          plus_one_dinner_choice = excluded.plus_one_dinner_choice,
+          needs_transport        = excluded.needs_transport,
+          dietary_notes          = excluded.dietary_notes,
+          song_request           = excluded.song_request,
+          invite_code            = excluded.invite_code,
+          email                  = excluded.email,
+          dinner_choice          = excluded.dinner_choice,
+          submitted_at           = now()
   `
+
 
   return NextResponse.json({ ok: true })
 }
