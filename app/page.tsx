@@ -24,7 +24,7 @@ export default function HomePage() {
             <div className="divider-coral" />
 
             <p className="lead mt-3 mb-1 text-navy" style={{ fontSize: '2rem', lineHeight: 1.1 }}>May 23, 2026</p>
-            <p className="lead text-navy opacity-75"><a href="https://tylerarboretum.org/">Tyler Arboretum</a> — Media, PA</p>
+            <p className="lead text-navy opacity-75"><a href="https://tylerarboretum.org/">Tyler Arboretum</a> — 515 Painter Rd Media, PA 19063</p>
 
             {/* Uniform filled buttons */}
             <div className="d-flex gap-3 justify-content-center mt-3">
