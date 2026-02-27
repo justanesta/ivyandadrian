@@ -12,7 +12,7 @@ export default function RSVPIndexPage() {
         Enter the word beneath your name on your RSVP card to confirm your response. Kindly RSVP by Saturday, April 11th, 2026.
       </p>
       <p className="text-muted mb-4">
-        Example:<br></br>Your Name<br></br><strong>nature</strong>
+        Example:<br></br>Adrian Nesta<br></br><strong>nature</strong>
       </p>
       <RSVPCodeForm />
     </main>
