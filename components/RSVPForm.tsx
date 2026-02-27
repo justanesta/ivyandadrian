@@ -46,6 +46,9 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
   // Optional email
   const [email, setEmail] = useState('')
 
+  // Submitting state
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const DINNER_CHOICES = [
     { title: 'Braised Brisket of Beef', blurb: 'Moroccan lemon sauce.' },
     { title: 'Rosemary Chicken', blurb: 'Rosemary & sundried tomato cream sauce.' },
@@ -85,13 +88,37 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
     return true
   }, [attending, dinnerChoice, allowPlusOne, bringPlusOne, plusOneName, plusOneDinnerChoice, email])
 
+  const getValidationMessage = () => {
+    if (typeof attending === 'undefined') {
+      return 'Please let us know if you will be attending.'
+    }
+    if (!isEmailValid(email)) {
+      return 'Please enter a valid email address or leave it blank.'
+    }
+    if (attending === true && !dinnerChoice) {
+      return 'Please select your dinner choice.'
+    }
+    if (attending && allowPlusOne && bringPlusOne) {
+      if (!plusOneName.trim()) {
+        return 'Please enter your plus-one\'s full name.'
+      }
+      if (!plusOneDinnerChoice) {
+        return 'Please select a dinner choice for your plus-one.'
+      }
+    }
+    return null
+  }
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!canSubmit) {
-      alert('Please complete the required fields before submitting.')
+
+    const validationMessage = getValidationMessage()
+    if (validationMessage) {
+      alert(validationMessage)
       return
     }
 
+    setIsSubmitting(true)
     try {
       const res = await fetch('/api/rsvp', {
         method: 'POST',
@@ -118,10 +145,12 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
       } else {
         const msg = await res.text()
         alert(`There was a problem: ${msg || 'Please try again.'}`)
+        setIsSubmitting(false)
       }
     } catch (err) {
       console.error(err)
       alert('Network error. Please try again.')
+      setIsSubmitting(false)
     }
   }
 
@@ -187,7 +216,7 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
                   id="plusOneName"
                   className="form-control"
                   type="text"
-                  placeholder="Full legal/preferred name"
+                  placeholder="Full preferred name"
                   maxLength={80}
                   value={plusOneName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPlusOneName(e.target.value)}
@@ -284,57 +313,61 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
         </div>
       )}
 
-      {/* Dietary notes */}
-      <div>
-        <label className="form-label" htmlFor="notes">Dietary notes</label>
-        <textarea
-          id="notes"
-          className="form-control"
-          placeholder="Allergies or dietary restrictions (optional)"
-          maxLength={500}
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          disabled={disabledIfNo}
-        />
-        <div className="form-text">Up to 500 characters.</div>
-      </div>
+      {/* Dietary notes (only relevant if attending) */}
+      {attending === true && (
+        <div>
+          <label className="form-label" htmlFor="notes">Dietary notes</label>
+          <textarea
+            id="notes"
+            className="form-control"
+            placeholder="Allergies or dietary restrictions (optional)"
+            maxLength={500}
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
+          <div className="form-text">Up to 500 characters.</div>
+        </div>
+      )}
 
-      {/* Favorite dance song */}
-      <div>
-        <label className="form-label" htmlFor="song">What song makes you hit the dance floor?</label>
-        <input
-          id="song"
-          className="form-control"
-          type="text"
-          placeholder="e.g., 'Orinoco Flow by Enya'"
-          maxLength={120}
-          value={song}
-          onChange={(e) => setSong(e.target.value)}
-          disabled={disabledIfNo}
-        />
-        <div className="form-text">Optional — title & artist (up to 120 characters).</div>
-      </div>
+      {/* Favorite dance song (only relevant if attending) */}
+      {attending === true && (
+        <div>
+          <label className="form-label" htmlFor="song">What song makes you hit the dance floor?</label>
+          <input
+            id="song"
+            className="form-control"
+            type="text"
+            placeholder="e.g., 'Orinoco Flow by Enya'"
+            maxLength={120}
+            value={song}
+            onChange={(e) => setSong(e.target.value)}
+          />
+          <div className="form-text">Optional — title & artist (up to 120 characters).</div>
+        </div>
+      )}
 
-      {/* Optional email for updates */}
-      <div>
-        <label className="form-label" htmlFor="email">Email for event updates (optional)</label>
-        <input
-          id="email"
-          className="form-control"
-          type="email"
-          inputMode="email"
-          placeholder="you@example.com"
-          maxLength={254}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {!isEmailValid(email) && (
-          <div className="text-danger small mt-1">Please enter a valid email address or leave blank.</div>
-        )}
-      </div>
+      {/* Optional email for updates (only relevant if attending) */}
+      {attending === true && (
+        <div>
+          <label className="form-label" htmlFor="email">Email for event updates (optional)</label>
+          <input
+            id="email"
+            className="form-control"
+            type="email"
+            inputMode="email"
+            placeholder="you@example.com"
+            maxLength={254}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {!isEmailValid(email) && (
+            <div className="text-danger small mt-1">Please enter a valid email address or leave blank.</div>
+          )}
+        </div>
+      )}
 
-      <button className="btn btn-dark" type="submit" disabled={!canSubmit}>
-        Submit RSVP
+      <button className="btn btn-dark" type="submit" disabled={!canSubmit || isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Submit RSVP'}
       </button>
     </form>
   )

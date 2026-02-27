@@ -24,7 +24,7 @@ export default function RSVPCodeForm() {
     e.preventDefault()
     const c = code.trim().toLowerCase()
     if (!/^[a-z]{4,8}$/.test(c)) {
-      alert('Please enter your 4–8 letter invite code.')
+      alert('Please enter your 4–8 letter invite word.')
       return
     }
     router.push(`/rsvp/${c}`)
@@ -39,7 +39,7 @@ export default function RSVPCodeForm() {
           className="form-control"
           type="text"
           inputMode="text"
-          placeholder="Enter your 4–8 letter code"
+          placeholder="Enter your 4–8 letter word"
           value={code}
           onChange={(e) => setCode(e.target.value)}
           pattern="[a-zA-Z]{4,8}"
@@ -49,7 +49,7 @@ export default function RSVPCodeForm() {
           spellCheck={false}
         />
         <div className="form-text">
-          This code is printed on your invitation.
+          This word is printed on your RSVP card.
         </div>
       </div>
 

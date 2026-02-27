@@ -40,13 +40,13 @@ export default function LogisticsPage() {
               />
             </figure>
             <figcaption className="form-text text-center mt-2 text-navy">
-              West Chester, PA
+              West Chester, PA. Photograph by Alice Snook-Shields.
             </figcaption>
           </div>
 
           {/* Optional blurb to balance the image; edit or remove as you like */}
           <div className="col-12 col-md-7">
-            <div className="section-soft bg-sky border-forest">
+            <div className="border rounded border-forest p-3 bg-sky">
               <h2 className="h3 text-navy mb-2">Staying in West Chester</h2>
               <p className="mb-0">
                 We have set up two hotel blocks in downtown West Chester, PA. West Chester is very walkable with many restaurants, shops, and bars.
@@ -61,11 +61,11 @@ export default function LogisticsPage() {
         <h2 className="h2 text-navy mb-3">Hotel Blocks</h2>
         <div className="row g-4">
           <div className="col-12 col-md-6">
-            <div className="section-soft bg-sky border-forest h-100">
+            <div className="border rounded border-forest p-3 h-100 bg-sky">
               <h3 className="h3 text-navy mb-1">Hotel Warner</h3>
               <p className="text-muted mb-2">
                 120 N High St, West Chester, PA 19380 — Reserve by{' '}
-                <strong><span className="text-forest">April 26th, 2026</span></strong>.
+                <strong><span className="text-forest fw-bold">April 26th, 2026</span></strong>.
               </p>
               <a
                 className="btn btn-brand btn-lg"
@@ -86,11 +86,11 @@ export default function LogisticsPage() {
 
           {/* Duplicate/modify this column per hotel */}
           <div className="col-12 col-md-6">
-            <div className="section-soft bg-sky border-forest h-100">
+            <div className="border rounded border-forest p-3 h-100 bg-sky">
               <h3 className="h3 text-navy mb-1">Hotel Indigo</h3>
               <p className="text-muted mb-2">
                 39 E Gay St, West Chester, PA 19380 — Reserve by{' '}
-                <strong><span className="text-forest">March 23rd, 2026</span></strong>.
+                <strong><span className="text-forest fw-bold">March 23rd, 2026</span></strong>.
               </p>
               <a
                 className="btn btn-brand btn-lg"
@@ -111,10 +111,89 @@ export default function LogisticsPage() {
         </div>
       </section>
 
+      {/* ===== Additional Accommodations ===== */}
+      <section className="mb-5">
+        <h2 className="h2 text-navy mb-3">Additional Accommodations</h2>
+        <div className="row g-4">
+        <div className="border rounded border-forest p-3 bg-sky">
+          <p className="mb-0">
+            If hotel blocks are full, there are additional lodging options nearby in <strong><span className="text-forest">West Chester</span></strong> or close to the wedding venue in <strong><span className="text-forest">Media</span></strong>.
+          </p>
+        </div>
+          <div className="col-12 col-md-6">
+            <div className="border rounded border-forest p-3 h-100 bg-sky">
+              <h3 className="h3 text-navy mb-1">Holiday Inn Express & Suites West Chester</h3>
+              <p className="text-muted mb-2">
+                1310 Wilmington Pike West Chester, PA 19382.
+              </p>
+              <a
+                className="btn btn-brand btn-lg"
+                href="https://www.ihg.com/holidayinnexpress/hotels/us/en/west-chester/phlwp/hoteldetail"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Hotel Website
+              </a>
+            </div>
+          </div>
+
+          <div className="col-12 col-md-6">
+            <div className="border rounded border-forest p-3 h-100 bg-sky">
+              <h3 className="h3 text-navy mb-1">Microtel Inn & Suites by Wyndham West Chester</h3>
+              <p className="text-muted mb-2">
+                500 Willowbrook Ln, West Chester, PA 19382.
+              </p>
+              <a
+                className="btn btn-brand btn-lg"
+                href="https://www.wyndhamhotels.com/microtel/west-chester-pennsylvania/microtel-inn-and-suites-west-chester-pa/overview?CID=LC:5b3ss9kd80xe5ox:28376&iata=00093796"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Hotel Website
+              </a>
+            </div>
+          </div>
+
+          <div className="col-12 col-md-6">
+            <div className="border rounded border-forest p-3 h-100 bg-sky">
+              <h3 className="h3 text-navy mb-1">Hilton Garden Inn Media Philadelphia</h3>
+              <p className="text-muted mb-2">
+                2 Donovan Dr, Media, PA 19063.
+              </p>
+              <a
+                className="btn btn-brand btn-lg"
+                href="https://www.hilton.com/en/hotels/phltsgi-hilton-garden-inn-media-philadelphia/?SEO_id=GMB-AMER-GI-PHLTSGI&y_source=1_MTA4NTM5NDg2Ni03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Hotel Website
+              </a>
+            </div>
+          </div>
+
+          <div className="col-12 col-md-6">
+            <div className="border rounded border-forest p-3 h-100 bg-sky">
+              <h3 className="h3 text-navy mb-1">AC Hotel Newtown Square</h3>
+              <p className="text-muted mb-2">
+                200 Squire Dr, Newtown Square, PA 19073.
+              </p>
+              <a
+                className="btn btn-brand btn-lg"
+                href="https://www.marriott.com/en-us/hotels/phlqc-ac-hotel-newtown-square/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Hotel Website
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== Transportation Callout ===== */}
       <section className="mb-5">
         <h2 className="h2 text-navy mb-2">Transportation</h2>
-        <div className="section-soft border-forest bg-sky">
+        <div className="border rounded border-forest p-3 bg-sky">
           <p className="mb-0">
             On the wedding day, buses will run from the hotels in <strong><span className="text-forest">West Chester</span></strong> to the wedding venue in <strong><span className="text-forest">Media</span></strong>. Upon receiving your invitation, please indicate whether you plan to use the bus.
           </p>
@@ -128,13 +207,19 @@ export default function LogisticsPage() {
           <div className="col-12 col-md-6">
             <div className="border rounded border-forest p-3 h-100 bg-sky">
               <h3 className="h3 text-navy">By Train</h3>
-              <p className="mb-0">The nearest rail station to West Chester is in Exton, PA which is serviced by <a href="https://www.septa.org/stations/exton-station" className="text-forest">SEPTA regional rail</a> on the Paoli/Thorndale Line and <a href="https://www.amtrak.com/stations/ext" className="text-forest">Amtrak</a> via the Keystone Service and the Pennsylvanian. Downtown West Chester is a 10 minute rideshare/taxi ride from the Exton Station.</p>
+              <p className="mb-0">The nearest rail station to West Chester is in Exton, PA which is serviced by <strong><a href="https://www.septa.org/stations/exton-station" className="text-forest">SEPTA regional rail</a></strong> on the Paoli/Thorndale Line and <strong><a href="https://www.amtrak.com/stations/ext" className="text-forest">Amtrak</a></strong> via the Keystone Service and the Pennsylvanian. Downtown West Chester is a 10 minute rideshare/taxi ride from the Exton Station.</p>
             </div>
           </div>
           <div className="col-12 col-md-6">
             <div className="border rounded border-forest p-3 h-100 bg-sky">
               <h3 className="h3 text-navy">By Plane</h3>
-              <p className="mb-0">The nearest airport is the <a href="https://www.phl.org/" className="text-forest">Philadelphia International Airport (PHL)</a>. There are direct flights from Minneapolis/Saint Paul, San Diego, Boston, San Francisco, Greensboro/High Point, Asheville, Cleveland, and Edinburgh. Downtown West Chester is typically a 45 minute rideshare/taxi ride from PHL.</p>
+              <p className="mb-0">The nearest airport is the <strong><a href="https://www.phl.org/" className="text-forest">Philadelphia International Airport (PHL)</a></strong>. There are direct flights from Minneapolis/Saint Paul, San Diego, Boston, Los Angeles, Greensboro/High Point, Asheville, Cleveland, and Edinburgh. Downtown West Chester is typically a 45 minute rideshare/taxi ride from PHL.</p>
+            </div>
+          </div>
+          <div className="col-12 col-md-6">
+            <div className="border rounded border-forest p-3 h-100 bg-sky">
+              <h3 className="h3 text-navy">By Car</h3>
+              <p className="mb-0">If choose to drive, there is both street and garage parking in West Chester. There is also plenty parking available at <strong><span className="text-forest">Tyler Arboretum</span></strong>.</p>
             </div>
           </div>
         </div>

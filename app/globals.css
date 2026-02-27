@@ -138,11 +138,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Boxes and cards across all pages */
-.section-soft,
-.card,
-section.border {
+.section-soft {
   background-color: var(--color-sky) !important;
   border: 2px solid var(--color-sage) !important;
+}
+
+/* Cards get sky background but respect border color classes */
+.card {
+  background-color: var(--color-sky) !important;
+}
+
+/* Sections with borders get sky background but respect border color classes */
+section.border {
+  background-color: var(--color-sky) !important;
 }
 
 /* Links */

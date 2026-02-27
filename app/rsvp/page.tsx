@@ -9,7 +9,10 @@ export default function RSVPIndexPage() {
     <main className="container py-5" style={{ maxWidth: 720 }}>
       <h1 className="h1 mb-3">Find your RSVP</h1>
       <p className="text-muted mb-4">
-        Enter the short word on your invitation (to be sent in early 2026) to reach your personalized RSVP page.
+        Enter the word beneath your name on your RSVP card to confirm your response. Kindly RSVP by Saturday, April 11th, 2026.
+      </p>
+      <p className="text-muted mb-4">
+        Example:<br></br>Your Name<br></br><strong>nature</strong>
       </p>
       <RSVPCodeForm />
     </main>

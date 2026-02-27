@@ -35,8 +35,8 @@ export default async function RSVPForCode({ params }: PageProps) {
   if (!guest) {
     return (
       <main className="container py-5" style={{ maxWidth: 720 }}>
-        <h1 className="h4 mb-3">Invalid RSVP link</h1>
-        <p>Please check your link or contact us for a new one.</p>
+        <h1 className="h4 mb-3">Invalid RSVP word</h1>
+        <p>Please check your RSVP card or contact Adrian at 858-229-7981 or Ivy at 610-675-8052.</p>
       </main>
     )
   }
