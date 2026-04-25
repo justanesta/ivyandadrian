@@ -63,6 +63,133 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Wedding weekend itinerary */}
+      <section className="py-5 text-navy">
+        <div className="container">
+          <h2
+            id="weekend-itinerary-heading"
+            className="h2 fw-semibold mb-4 text-center"
+          >
+            Wedding Weekend Itinerary
+          </h2>
+
+          <div
+            className="mx-auto text-start"
+            style={{
+              maxWidth: 640,
+              fontSize: '1.1rem',
+              lineHeight: 1.5,
+            }}
+          >
+            <div className="mb-4">
+              <p className="fw-semibold mb-1"><u>Friday, May 22</u></p>
+              <p className="mb-0">
+                After the rehearsal dinner, we will be at <b>Station 142</b> (142 E Market St, West Chester, PA 19382) around 7:30pm if you would like to join! It is about a 5 minute walk from the hotels. It is a cash bar so come ready to grab your own drinks. Hope to see you there!
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <p className="fw-semibold mb-1"><u>Saturday, May 23</u></p>
+              <p className="mb-0">
+                The wedding ceremony begins at 5pm at the <b>Tyler Arboretum</b> (515 Painter Rd, Media, PA 19063). Cocktail hour and reception to follow on site.
+              </p>
+            </div>
+
+            <div>
+              <p className="fw-semibold mb-1"><u>Sunday, May 24</u></p>
+              <p className="mb-0">
+                Feel free to stop by <b>Marie & Gordon's home</b> (13 Smedley Dr, Newtown Square, PA 19073) for a casual brunch at 10:00am.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* West Chester restaurant recommendations */}
+      <section className="py-5 text-navy">
+        <div className="container">
+          <h2
+          id="restaurant-recommendations-heading"
+          className="h2 fw-semibold mt-5 mb-4 text-center text-navy"
+        >
+          West Chester Restaurant &amp; Bar Recommendations
+        </h2>
+
+        <div
+          className="mx-auto text-start"
+          style={{
+            maxWidth: 640,
+            fontSize: '1.1rem',
+            lineHeight: 1.5,
+          }}
+        >
+          <h3 className="h4 fw-semibold mb-3 text-navy">
+            Great for casual eats and drinks
+          </h3>
+          <div className="mb-4">
+            <p className="fw-semibold mb-1 text-navy">BierHaul - TownHouse</p>
+            <p className="mb-0">
+              15 N Walnut St, West Chester, PA 19380
+            </p>
+          </div>
+          <div className="mb-4">
+            <p className="fw-semibold mb-1 text-navy">Kildares Irish Pub</p>
+            <p className="mb-0">
+              18 W Gay St, West Chester, PA 19380
+            </p>
+          </div>
+          <div className="mb-4">
+            <p className="fw-semibold mb-1 text-navy">Slow Hand WC</p>
+            <p className="mb-0">
+              30 N Church St, West Chester, PA 19380
+            </p>
+          </div>
+          <div className="mb-4">
+            <p className="fw-semibold mb-1 text-navy">Steaks West Chester</p>
+            <p className="mb-0">
+              698 E Market St Unit 3, West Chester, PA 19382
+            </p>
+          </div>
+          <div className="mb-4">
+            <p className="fw-semibold mb-1 text-navy">West Chester Pizza Cafe</p>
+            <p className="mb-0">
+              701 W Nields St, West Chester, PA 19382
+            </p>
+          </div>
+
+          <h3 className="h4 fw-semibold mt-4 mb-3 text-navy">
+            Recommend a reservation
+          </h3>
+          <div className="mb-3">
+            <p className="fw-semibold mb-1 text-navy">Opa Taverna</p>
+            <p className="mb-0">
+              40 E Gay St, West Chester, PA 19380
+            </p>
+          </div>
+
+          <div className="mb-3">
+            <p className="fw-semibold mb-1 text-navy">Dolce Zola</p>
+            <p className="mb-0">
+              134 E Gay St, West Chester, PA 19380
+            </p>
+          </div>
+
+          <div className="mb-3">
+            <p className="fw-semibold mb-1 text-navy">Limoncello West Chester</p>
+            <p className="mb-0">
+              9 N Walnut St, West Chester, PA 19380
+            </p>
+          </div>
+          <div className="mb-3">
+            <p className="fw-semibold mb-1 text-navy">The Mediterranean</p>
+            <p className="mb-0">
+              150 W Gay St, West Chester, PA 19380 — BYOB
+            </p>
+          </div>
+        </div>
+        </div>
+      </section>
+
       {/* ===== Optional: second big image or venue detail ===== */}
       <section className="py-5">
         <div className="container">
