@@ -98,7 +98,7 @@ export default function HomePage() {
             <div>
               <p className="fw-semibold mb-1"><u>Sunday, May 24</u></p>
               <p className="mb-0">
-                Feel free to stop by <b>Marie & Gordon's home</b> (13 Smedley Dr, Newtown Square, PA 19073) for a casual brunch at 10:00am.
+                Feel free to stop by <b>Marie &amp; Gordon's home</b> (13 Smedley Dr, Newtown Square, PA 19073) for a casual brunch at 10:00am.
               </p>
             </div>
           </div>
