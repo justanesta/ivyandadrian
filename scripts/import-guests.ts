@@ -1,6 +1,6 @@
 // scripts/import-guests.mjs
 // Usage: node scripts/import-guests.mjs path/to/guests.csv
-// CSV headers: full_name,association,allow_plus_one,plus_one_max
+// CSV headers: full_name,association,allow_plus_one
 
 import { loadEnvConfig } from '@next/env'      // load .env.local like Next.js
 loadEnvConfig(process.cwd())                   // ensures POSTGRES_URL is present (local)
@@ -23,9 +23,8 @@ async function main(file: string) {
 
     const association = row.association ? String(row.association).trim() : null
     const allow_plus_one = String(row.allow_plus_one || '').toLowerCase() === 'true'
-    const plus_one_max = row.plus_one_max ? Number(row.plus_one_max) : (allow_plus_one ? 1 : 0)
 
-    const code = await insertGuestWithCode({ full_name, association, allow_plus_one, plus_one_max })
+    const code = await insertGuestWithCode({ full_name, association, allow_plus_one })
     n++
     console.log(`${n}. ${full_name}  →  code: ${code}`)
   }

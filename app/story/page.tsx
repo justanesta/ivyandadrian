@@ -31,6 +31,7 @@ export default function OurStoryPage() {
         height={4080}
         className="rounded-2 w-100"
         style={{ height: 'auto' }}
+        sizes="(min-width: 1000px) 1000px, 100vw"
         priority
         />
       </figure>
@@ -65,7 +66,7 @@ export default function OurStoryPage() {
         showCaptions
         slides={[
           { src: '/images/ivy-adrian-engagement-1.jpg', alt: 'Getting engaged in Lake George', captionText: 'Getting engaged in Lake George'},
-          { src: '/images/ivy-adrian-amsterdam.jpg', alt: 'Vacationing in Amsterdam', captionText: 'Vacationing in Amersterdam' },
+          { src: '/images/ivy-adrian-amsterdam.jpg', alt: 'Vacationing in Amsterdam', captionText: 'Vacationing in Amsterdam' },
           { src: '/images/ivy-adrian-rail-bike.jpg', alt: 'Rail biking by the Hudson River', captionText: 'Rail biking by the Hudson River' },
           { src: '/images/ivy-adrian-india.jpg', alt: 'At the Taj Mahal', captionText: 'At the Taj Mahal' },
           { src: '/images/ivy-adrian-subway.jpg', alt: 'On the NYC Subway', captionText: 'On the NYC Subway' },

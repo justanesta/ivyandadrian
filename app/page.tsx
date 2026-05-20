@@ -24,10 +24,10 @@ export default function HomePage() {
             <div className="divider-coral" />
 
             <p className="lead mt-3 mb-1 text-navy" style={{ fontSize: '2rem', lineHeight: 1.1 }}>May 23, 2026</p>
-            <p className="lead text-navy opacity-75"><a href="https://tylerarboretum.org/">Tyler Arboretum</a> — 515 Painter Rd Media, PA 19063</p>
+            <p className="lead text-navy opacity-75"><a href="https://tylerarboretum.org/" target="_blank" rel="noreferrer">Tyler Arboretum</a> — 515 Painter Rd Media, PA 19063</p>
 
             {/* Uniform filled buttons */}
-            <div className="d-flex gap-3 justify-content-center mt-3">
+            <div className="d-flex flex-wrap gap-3 justify-content-center mt-3">
               <Link href="/rsvp" className="btn btn-brand btn-lg">RSVP</Link>
               <Link href="/logistics" className="btn btn-brand btn-lg">Logistics &amp; Lodging</Link>
               <Link href="/faq" className="btn btn-brand btn-lg">FAQ</Link>
@@ -39,7 +39,7 @@ export default function HomePage() {
             className="mt-5 mb-0 position-relative d-flex justify-content-center align-items-center"
             style={{
               backgroundColor: 'var(--color-sage)',  // same as page bg
-              height: 'clamp(500px, 75vh, 900px)',   // responsive vertical space
+              height: 'clamp(360px, 60vh, 900px)',   // responsive vertical space
               overflow: 'hidden',
               borderRadius: '1rem',
               boxShadow: '0 10px 28px rgba(0,0,0,0.12)',
@@ -82,21 +82,41 @@ export default function HomePage() {
             }}
           >
             <div className="mb-4">
-              <p className="fw-semibold mb-1"><u>Friday, May 22</u></p>
+              <p
+                className="fw-semibold mb-1 ps-2"
+                style={{ borderLeft: '4px solid var(--color-coral)' }}
+              >
+                Friday, May 22
+              </p>
               <p className="mb-0">
-                After the rehearsal dinner, we will be at <b>Station 142</b> (142 E Market St, West Chester, PA 19382) around 7:30pm if you would like to join! It is about a 5 minute walk from the hotels. It is a cash bar so come ready to grab your own drinks. Hope to see you there!
+                After the rehearsal dinner, we will be at <b>Station 142</b> (142 E Market St, West Chester, PA 19382) around 7:30pm if you would like to join! It is about a 5 minute walk from the hotels. There is a <b>$5 cover charge after 8pm</b> at the door, and it is a cash bar so come ready to grab your own drinks. Hope to see you there!
               </p>
             </div>
 
             <div className="mb-4">
-              <p className="fw-semibold mb-1"><u>Saturday, May 23</u></p>
-              <p className="mb-0">
+              <p
+                className="fw-semibold mb-1 ps-2"
+                style={{ borderLeft: '4px solid var(--color-coral)' }}
+              >
+                Saturday, May 23
+              </p>
+              <p className="mb-2">
                 The wedding ceremony begins at 5pm at the <b>Tyler Arboretum</b> (515 Painter Rd, Media, PA 19063). Cocktail hour and reception to follow on site.
               </p>
+              <p className="mb-1"><b>Bus departure times:</b></p>
+              <ul className="mb-0 ps-4">
+                <li><b>Hotel Indigo</b> &mdash; 3:00pm and 3:35pm</li>
+                <li><b>Hotel Warner</b> &mdash; 3:15pm and 4:15pm</li>
+              </ul>
             </div>
 
             <div>
-              <p className="fw-semibold mb-1"><u>Sunday, May 24</u></p>
+              <p
+                className="fw-semibold mb-1 ps-2"
+                style={{ borderLeft: '4px solid var(--color-coral)' }}
+              >
+                Sunday, May 24
+              </p>
               <p className="mb-0">
                 Feel free to stop by <b>Marie &amp; Gordon&apos;s home</b> (13 Smedley Dr, Newtown Square, PA 19073) for a casual brunch at 10:00am.
               </p>
@@ -118,7 +138,7 @@ export default function HomePage() {
         <div
           className="mx-auto text-start"
           style={{
-            maxWidth: 640,
+            maxWidth: 900,
             fontSize: '1.1rem',
             lineHeight: 1.5,
           }}
@@ -126,65 +146,49 @@ export default function HomePage() {
           <h3 className="h4 fw-semibold mb-3 text-navy">
             Great for casual eats and drinks
           </h3>
-          <div className="mb-4">
-            <p className="fw-semibold mb-1 text-navy">BierHaul - TownHouse</p>
-            <p className="mb-0">
-              15 N Walnut St, West Chester, PA 19380
-            </p>
-          </div>
-          <div className="mb-4">
-            <p className="fw-semibold mb-1 text-navy">Kildares Irish Pub</p>
-            <p className="mb-0">
-              18 W Gay St, West Chester, PA 19380
-            </p>
-          </div>
-          <div className="mb-4">
-            <p className="fw-semibold mb-1 text-navy">Slow Hand WC</p>
-            <p className="mb-0">
-              30 N Church St, West Chester, PA 19380
-            </p>
-          </div>
-          <div className="mb-4">
-            <p className="fw-semibold mb-1 text-navy">Steaks West Chester</p>
-            <p className="mb-0">
-              698 E Market St Unit 3, West Chester, PA 19382
-            </p>
-          </div>
-          <div className="mb-4">
-            <p className="fw-semibold mb-1 text-navy">West Chester Pizza Cafe</p>
-            <p className="mb-0">
-              701 W Nields St, West Chester, PA 19382
-            </p>
+          <div className="row row-cols-1 row-cols-md-2 g-3 mb-4">
+            <div className="col">
+              <p className="fw-semibold mb-1 text-navy">BierHaul - TownHouse</p>
+              <p className="mb-0">15 N Walnut St, West Chester, PA 19380</p>
+            </div>
+            <div className="col">
+              <p className="fw-semibold mb-1 text-navy">Kildares Irish Pub</p>
+              <p className="mb-0">18 W Gay St, West Chester, PA 19380</p>
+            </div>
+            <div className="col">
+              <p className="fw-semibold mb-1 text-navy">Slow Hand WC</p>
+              <p className="mb-0">30 N Church St, West Chester, PA 19380</p>
+            </div>
+            <div className="col">
+              <p className="fw-semibold mb-1 text-navy">Steaks West Chester</p>
+              <p className="mb-0">698 E Market St Unit 3, West Chester, PA 19382</p>
+            </div>
+            <div className="col">
+              <p className="fw-semibold mb-1 text-navy">West Chester Pizza Cafe</p>
+              <p className="mb-0">701 W Nields St, West Chester, PA 19382</p>
+            </div>
           </div>
 
           <h3 className="h4 fw-semibold mt-4 mb-3 text-navy">
             Recommend a reservation
           </h3>
-          <div className="mb-3">
-            <p className="fw-semibold mb-1 text-navy">Opa Taverna</p>
-            <p className="mb-0">
-              40 E Gay St, West Chester, PA 19380
-            </p>
-          </div>
-
-          <div className="mb-3">
-            <p className="fw-semibold mb-1 text-navy">Dolce Zola</p>
-            <p className="mb-0">
-              134 E Gay St, West Chester, PA 19380
-            </p>
-          </div>
-
-          <div className="mb-3">
-            <p className="fw-semibold mb-1 text-navy">Limoncello West Chester</p>
-            <p className="mb-0">
-              9 N Walnut St, West Chester, PA 19380
-            </p>
-          </div>
-          <div className="mb-3">
-            <p className="fw-semibold mb-1 text-navy">The Mediterranean</p>
-            <p className="mb-0">
-              150 W Gay St, West Chester, PA 19380 — BYOB
-            </p>
+          <div className="row row-cols-1 row-cols-md-2 g-3">
+            <div className="col">
+              <p className="fw-semibold mb-1 text-navy">Opa Taverna</p>
+              <p className="mb-0">40 E Gay St, West Chester, PA 19380</p>
+            </div>
+            <div className="col">
+              <p className="fw-semibold mb-1 text-navy">Dolce Zola</p>
+              <p className="mb-0">134 E Gay St, West Chester, PA 19380</p>
+            </div>
+            <div className="col">
+              <p className="fw-semibold mb-1 text-navy">Limoncello West Chester</p>
+              <p className="mb-0">9 N Walnut St, West Chester, PA 19380</p>
+            </div>
+            <div className="col">
+              <p className="fw-semibold mb-1 text-navy">The Mediterranean</p>
+              <p className="mb-0">150 W Gay St, West Chester, PA 19380 &mdash; BYOB</p>
+            </div>
           </div>
         </div>
         </div>

@@ -70,12 +70,11 @@ export async function insertGuestWithCode(g: {
   full_name: string
   association?: string | null
   allow_plus_one?: boolean
-  plus_one_max?: number
 }) {
   const code = await allocateCode()
   await sql`
-    insert into guests (invite_code, full_name, association, allow_plus_one, plus_one_max)
-    values (${code}, ${g.full_name}, ${g.association ?? null}, ${!!g.allow_plus_one}, ${g.plus_one_max ?? 0})
+    insert into guests (invite_code, full_name, association, allow_plus_one)
+    values (${code}, ${g.full_name}, ${g.association ?? null}, ${!!g.allow_plus_one})
   `
   return code
 }
