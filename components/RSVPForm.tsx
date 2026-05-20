@@ -69,8 +69,6 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
     }
   }, [attending])
 
-  const disabledIfNo = attending === false
-
   // Simple email validator (client-side)
   function isEmailValid(s: string) {
     if (!s) return true // optional
@@ -366,7 +364,7 @@ export default function RSVPForm({ inviteCode, allowPlusOne }: Props) {
         </div>
       )}
 
-      <button className="btn btn-dark" type="submit" disabled={!canSubmit || isSubmitting}>
+      <button className="btn btn-brand" type="submit" disabled={!canSubmit || isSubmitting}>
         {isSubmitting ? 'Submitting...' : 'Submit RSVP'}
       </button>
     </form>

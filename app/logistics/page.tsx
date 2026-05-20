@@ -46,7 +46,13 @@ export default function LogisticsPage() {
 
           {/* Optional blurb to balance the image; edit or remove as you like */}
           <div className="col-12 col-md-7">
-            <div className="border rounded border-forest p-3 bg-sky">
+            <div
+              className="rounded p-3 bg-sky"
+              style={{
+                border: '1px solid var(--color-forest)',
+                borderLeft: '3px solid var(--color-coral)',
+              }}
+            >
               <h2 className="h3 text-navy mb-2">Staying in West Chester</h2>
               <p className="mb-0">
                 We have set up two hotel blocks in downtown West Chester, PA. West Chester is very walkable with many restaurants, shops, and bars.
@@ -94,7 +100,7 @@ export default function LogisticsPage() {
               </p>
               <a
                 className="btn btn-brand btn-lg"
-                href="https://www.ihg.com/redirect?path=asearch&brandCode=IN&localeCode=en&regionCode=1&hotelCode=PHLWE&checkInDate=22&checkInMonthYear=042026&checkOutDate=24&checkOutMonthYear=042026&rateCode=6CBARC&_PMID=99801505&GPC=HNW&cn=no&adjustMonth=false&showApp=true&monthIndex=00"
+                href="https://www.ihg.com/redirect?path=asearch&brandCode=IN&localeCode=en&regionCode=1&hotelCode=PHLWE&checkInDate=22&checkInMonthYear=052026&checkOutDate=24&checkOutMonthYear=052026&rateCode=6CBARC&_PMID=99801505&GPC=HNW&cn=no&adjustMonth=false&showApp=true&monthIndex=00"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -193,10 +199,21 @@ export default function LogisticsPage() {
       {/* ===== Transportation Callout ===== */}
       <section className="mb-5">
         <h2 className="h2 text-navy mb-2">Transportation</h2>
-        <div className="border rounded border-forest p-3 bg-sky">
-          <p className="mb-0">
+        <div
+          className="rounded p-3 bg-sky"
+          style={{
+            border: '1px solid var(--color-forest)',
+            borderLeft: '6px solid var(--color-coral)',
+          }}
+        >
+          <p className="mb-2">
             On the wedding day, buses will run from the hotels in <strong><span className="text-forest">West Chester</span></strong> to the wedding venue in <strong><span className="text-forest">Media</span></strong>. Upon receiving your invitation, please indicate whether you plan to use the bus.
           </p>
+          <p className="mb-1"><strong>Bus departure times:</strong></p>
+          <ul className="mb-0 ps-4">
+            <li><strong>Hotel Indigo</strong> &mdash; 3:00pm and 3:35pm</li>
+            <li><strong>Hotel Warner</strong> &mdash; 3:15pm and 4:15pm</li>
+          </ul>
         </div>
       </section>
 

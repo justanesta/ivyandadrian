@@ -17,12 +17,15 @@ export const metadata: Metadata = {
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
   weight: ['400', '600', '700'],
+  variable: '--font-family-base',
+  fallback: ['Georgia', 'serif'],
 })
 
 const dancingScript = Dancing_Script({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-family-script', // optional CSS var you can use in CSS
+  variable: '--font-family-script',
+  fallback: ['cursive'],
 })
 
 export default function RootLayout({
@@ -32,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${sourceSerif.className} ${dancingScript.variable}`}>
+      <body className={`${sourceSerif.variable} ${dancingScript.variable}`}>
         <nav className="navbar navbar-expand-md navbar-light bg-white border-bottom">
           <div className="container">
             <Link className="navbar-brand fw-bold" href="/" style={{ fontSize: '2rem', lineHeight: 1.1 }}>
@@ -43,6 +46,9 @@ export default function RootLayout({
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#nav"
+              aria-controls="nav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
             >
               <span className="navbar-toggler-icon"></span>
             </button>
